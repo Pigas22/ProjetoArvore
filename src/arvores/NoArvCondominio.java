@@ -36,4 +36,11 @@ public class NoArvCondominio {
 	public void setInfo(ItemCondominio elem){
 		this.info = elem;
 	}
+	/*
+	 * Diogo Rocha da Silva Pelanda
+	 * Thiago Holz Coutinho
+	 * Vinicius Rocha Aleixo
+	 * 
+	 * Copyright TVD
+	 */
 }

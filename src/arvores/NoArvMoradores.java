@@ -1,12 +1,12 @@
 package arvores;
 
 
-import dados.ItemMoradores;
+import dados.ItemMorador;
 
 public class NoArvMoradores {
-	private ItemMoradores info; // o tipo ItemMoradores está declarado no capítulo 1
+	private ItemMorador info; // o tipo ItemMoradores está declarado no capítulo 1
 	private NoArvMoradores esq, dir;
-	public NoArvMoradores(ItemMoradores elem){
+	public NoArvMoradores(ItemMorador elem){
 		this.info = elem;
 		this.esq = null;
 		this.dir = null;
@@ -20,7 +20,7 @@ public class NoArvMoradores {
 		return this.dir;
 	}
 	
-	public ItemMoradores getInfo(){
+	public ItemMorador getInfo(){
 		return this.info;
 	}
 	
@@ -32,7 +32,14 @@ public class NoArvMoradores {
 		this.dir = no;
 	}
 	
-	public void setInfo(ItemMoradores elem){
+	public void setInfo(ItemMorador elem){
 		this.info = elem;
 	}
+	/*
+	 * Diogo Rocha da Silva Pelanda
+	 * Thiago Holz Coutinho
+	 * Vinicius Rocha Aleixo
+	 * 
+	 * Copyright TVD
+	 */
 }

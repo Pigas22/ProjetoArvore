@@ -1,17 +1,42 @@
 package dados;
 
-public class ItemMoradores {
+public class ItemMorador {
+	private static int NumInstance = 0;
+	private int idMorador;
+	
 	private String nomeResonsavel;
 	private int quantMoradores;
+	
 	private int numAP;
 	private int numCond;
 	
-	public ItemMoradores(String nomeResonsavel, int quantMoradores, int numAP, int numCond) {
-		super();
+	
+	public ItemMorador(String nomeResonsavel, int quantMoradores, int numAP, int numCond) {
+		this.idMorador = NumInstance++;
 		this.nomeResonsavel = nomeResonsavel;
+		
 		this.quantMoradores = quantMoradores;
 		this.numAP = numAP;
+		
 		this.numCond = numCond;
+	}
+	
+	
+	@Override
+    public String toString() {
+        return "EntidadeMorador{"
+        		+ "\n		id= " + idMorador + ";"
+        		+ "\n		nomeResponsavel= " + nomeResonsavel + ";"
+        		+ "\n		quantMoradores= " + quantMoradores + ";"
+        		+ "\n		numAP= " + numAP + ";"
+        		+ "\n		numCond= " + numCond + ";"
+        		+ "}";
+
+    }
+	
+	
+	public int getIdMorador() {
+		return this.idMorador;
 	}
 	
 	
@@ -45,4 +70,11 @@ public class ItemMoradores {
 	public void setNumCond(int numCond) {
 		this.numCond = numCond;
 	}
+	/*
+	 * Diogo Rocha da Silva Pelanda
+	 * Thiago Holz Coutinho
+	 * Vinicius Rocha Aleixo
+	 * 
+	 * Copyright TVD
+	 */
 }

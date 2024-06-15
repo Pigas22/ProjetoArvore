@@ -1,14 +1,13 @@
 package arvores;
 
-import dados.ItemCondominio;
+import dados.ItemMorador;
 
-
-public class ArvoreCondominio {
-	private NoArvCondominio raiz;
+public class ArvoreMorador {
+	private NoArvMoradores raiz;
 	private int quantNos;//opcional
 	
 	
-	public ArvoreCondominio(){
+	public ArvoreMorador(){
 		this.quantNos=0;
 		this.raiz = null;
 	}
@@ -17,7 +16,7 @@ public class ArvoreCondominio {
 		return (this.raiz == null);
 	}
 	
-	public NoArvCondominio getRaiz(){
+	public NoArvMoradores getRaiz(){
 		return this.raiz;
 	}
 	
@@ -26,8 +25,8 @@ public class ArvoreCondominio {
 	}
 	
 	//inserir um novo nó na arvore. Sempre insere em um atributo que seja igual a null
-	public boolean inserir (ItemCondominio elem){
-		if (pesquisar (elem.getIdCond())){
+	public boolean inserir (ItemMorador elem){
+		if (pesquisar (elem.getIdMorador())){
 			return false;
 		}else{
 			this.raiz = inserir (elem, this.raiz);
@@ -36,12 +35,12 @@ public class ArvoreCondominio {
 		}
 	}
 	
-	public NoArvCondominio inserir (ItemCondominio elem, NoArvCondominio no){
+	public NoArvMoradores inserir (ItemMorador elem, NoArvMoradores no){
 		if (no == null){
-			NoArvCondominio novo = new NoArvCondominio(elem);
+			NoArvMoradores novo = new NoArvMoradores(elem);
 			return novo;
 		}else {
-			if (elem.getIdCond() < no.getInfo().getIdCond()){
+			if (elem.getIdMorador() < no.getInfo().getIdMorador()){
 				no.setEsq(inserir(elem, no.getEsq()));
 				return no;
 			}else{
@@ -60,12 +59,12 @@ public class ArvoreCondominio {
 		}
 	}
 	
-	private NoArvCondominio pesquisar (int chave, NoArvCondominio no){
+	private NoArvMoradores pesquisar (int chave, NoArvMoradores no){
 		if (no != null){
-			if (chave < no.getInfo().getIdCond()){
+			if (chave < no.getInfo().getIdMorador()){
 				no = pesquisar (chave, no.getEsq());
 			}else{
-				if (chave > no.getInfo().getIdCond()){
+				if (chave > no.getInfo().getIdMorador()){
 					no = pesquisar (chave, no.getDir());
 				}
 			}
@@ -86,11 +85,11 @@ public class ArvoreCondominio {
 		}
 	}
 	
-	public NoArvCondominio remover (int chave, NoArvCondominio arv){
-		if (chave < arv.getInfo().getIdCond()){
+	public NoArvMoradores remover (int chave, NoArvMoradores arv){
+		if (chave < arv.getInfo().getIdMorador()){
 			arv.setEsq(remover (chave, arv.getEsq()));
 		}else{
-			if (chave > arv.getInfo().getIdCond()){
+			if (chave > arv.getInfo().getIdMorador()){
 				arv.setDir(remover (chave, arv.getDir()));
 			}else{
 				if (arv.getDir()== null){
@@ -107,7 +106,7 @@ public class ArvoreCondominio {
 		return arv;
 	}
 	
-	private NoArvCondominio Arrumar (NoArvCondominio arv, NoArvCondominio maior){
+	private NoArvMoradores Arrumar (NoArvMoradores arv, NoArvMoradores maior){
 		if (maior.getDir() != null){
 			maior.setDir(Arrumar (arv, maior.getDir()));
 		}
@@ -119,13 +118,13 @@ public class ArvoreCondominio {
 	}
 	
 	//caminhamento central
-	public ItemCondominio [] CamCentral (){
+	public ItemMorador [] CamCentral (){
 		int []n= new int[1];
 		n[0]=0;
-		ItemCondominio [] vet = new ItemCondominio[this.quantNos];
+		ItemMorador [] vet = new ItemMorador[this.quantNos];
 		return (FazCamCentral (this.raiz, vet, n));
 	}
-	private ItemCondominio [] FazCamCentral (NoArvCondominio arv, ItemCondominio [] vet, int []n){
+	private ItemMorador [] FazCamCentral (NoArvMoradores arv, ItemMorador [] vet, int []n){
 		if (arv != null) {
 			vet = FazCamCentral (arv.getEsq(),vet,n);
 			vet[n[0]] = arv.getInfo();
@@ -136,13 +135,13 @@ public class ArvoreCondominio {
 	}
 	
 	//caminhamento pré-fixado
-	public ItemCondominio [] CamPreFixado (){
+	public ItemMorador [] CamPreFixado (){
 		int []n= new int[1];
 		n[0]=0;
-		ItemCondominio [] vet = new ItemCondominio[this.quantNos];
+		ItemMorador [] vet = new ItemMorador[this.quantNos];
 		return (FazCamPreFixado (this.raiz, vet, n));
 	}
-	private ItemCondominio [] FazCamPreFixado (NoArvCondominio arv, ItemCondominio [] vet, int []n){
+	private ItemMorador [] FazCamPreFixado (NoArvMoradores arv, ItemMorador [] vet, int []n){
 		if (arv != null) {
 			vet[n[0]] = arv.getInfo();
 			n[0]++;
@@ -153,14 +152,14 @@ public class ArvoreCondominio {
 	}
 	
 	//caminhamento pós-fixado
-	public ItemCondominio [] CamPosFixado (){
+	public ItemMorador [] CamPosFixado (){
 		int []n= new int[1];
 		n[0]=0;
-		ItemCondominio [] vet = new ItemCondominio[this.quantNos];
+		ItemMorador [] vet = new ItemMorador[this.quantNos];
 		return (FazCamPosFixado (this.raiz, vet, n));
 	}
 	
-	private ItemCondominio [] FazCamPosFixado (NoArvCondominio arv, ItemCondominio[] vet, int []n){
+	private ItemMorador [] FazCamPosFixado (NoArvMoradores arv, ItemMorador[] vet, int []n){
 		if (arv != null) {
 			vet = FazCamPosFixado (arv.getEsq(), vet,n);
 			vet = FazCamPosFixado (arv.getDir(), vet,n);
