@@ -1,6 +1,5 @@
 package dados;
 
-import javax.print.attribute.standard.MediaSize.ISO;
 
 public class ItemCondominio {
 	private static int NumInstance = 0;
@@ -12,7 +11,7 @@ public class ItemCondominio {
 	private String endereco = ""; // Opcional
 	private int quantAP;
 	
-	
+
 	// Construtor sem Endereco
 	public ItemCondominio(String nomeCond, String adm, int quantAP) {
 		this.idCond = NumInstance++;

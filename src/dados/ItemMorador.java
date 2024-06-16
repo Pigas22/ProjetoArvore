@@ -10,6 +10,8 @@ public class ItemMorador {
 	private int numAP;
 	private int numCond;
 	
+	private boolean isVago = true;
+	
 	
 	public ItemMorador(String nomeResonsavel, int quantMoradores, int numAP, int numCond) {
 		this.idMorador = NumInstance++;
@@ -19,6 +21,10 @@ public class ItemMorador {
 		this.numAP = numAP;
 		
 		this.numCond = numCond;
+		
+		if (quantMoradores != 0) {
+			this.isVago = false;
+		}
 	}
 	
 	
@@ -69,6 +75,14 @@ public class ItemMorador {
 	}
 	public void setNumCond(int numCond) {
 		this.numCond = numCond;
+	}
+	
+	
+	public boolean getIsVago() {
+		return this.isVago;
+	}
+	public void setIsVago(boolean isVago) {
+		this.isVago = isVago;
 	}
 	/*
 	 * Diogo Rocha da Silva Pelanda

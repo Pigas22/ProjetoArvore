@@ -52,21 +52,21 @@ public class ArvoreCondominio {
 	}
 	
 	//Pesquisa se um determinado valor está na árvore
-	public boolean pesquisar (int chave){
-		if (pesquisar (chave, this.raiz)!= null){
+	public boolean pesquisar (int idCond){
+		if (pesquisar (idCond, this.raiz)!= null){
 			return true;
 		}else{
 			return false;
 		}
 	}
 	
-	private NoArvCondominio pesquisar (int chave, NoArvCondominio no){
+	private NoArvCondominio pesquisar (int idCond, NoArvCondominio no){
 		if (no != null){
-			if (chave < no.getInfo().getIdCond()){
-				no = pesquisar (chave, no.getEsq());
+			if (idCond < no.getInfo().getIdCond()){
+				no = pesquisar (idCond, no.getEsq());
 			}else{
-				if (chave > no.getInfo().getIdCond()){
-					no = pesquisar (chave, no.getDir());
+				if (idCond > no.getInfo().getIdCond()){
+					no = pesquisar (idCond, no.getDir());
 				}
 			}
 		}
@@ -75,9 +75,9 @@ public class ArvoreCondominio {
 	
 	//remove um determinado nó procurando pela chave. O nó pode estar em qualquer
 	//posição na árvore
-	public boolean remover (int chave){
-		if (pesquisar (chave, this.raiz) != null){
-			this.raiz = remover (chave, this.raiz);
+	public boolean remover (int idCond){
+		if (pesquisar (idCond, this.raiz) != null){
+			this.raiz = remover (idCond, this.raiz);
 			this.quantNos--;
 			return true;
 		}
@@ -86,12 +86,12 @@ public class ArvoreCondominio {
 		}
 	}
 	
-	public NoArvCondominio remover (int chave, NoArvCondominio arv){
-		if (chave < arv.getInfo().getIdCond()){
-			arv.setEsq(remover (chave, arv.getEsq()));
+	public NoArvCondominio remover (int idCond, NoArvCondominio arv){
+		if (idCond < arv.getInfo().getIdCond()){
+			arv.setEsq(remover (idCond, arv.getEsq()));
 		}else{
-			if (chave > arv.getInfo().getIdCond()){
-				arv.setDir(remover (chave, arv.getDir()));
+			if (idCond > arv.getInfo().getIdCond()){
+				arv.setDir(remover (idCond, arv.getDir()));
 			}else{
 				if (arv.getDir()== null){
 					return arv.getEsq();

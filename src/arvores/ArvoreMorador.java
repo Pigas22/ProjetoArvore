@@ -51,21 +51,21 @@ public class ArvoreMorador {
 	}
 	
 	//Pesquisa se um determinado valor está na árvore
-	public boolean pesquisar (int chave){
-		if (pesquisar (chave, this.raiz)!= null){
+	public boolean pesquisar (int idMorador){
+		if (pesquisar (idMorador, this.raiz)!= null){
 			return true;
 		}else{
 			return false;
 		}
 	}
 	
-	private NoArvMoradores pesquisar (int chave, NoArvMoradores no){
+	private NoArvMoradores pesquisar (int idMorador, NoArvMoradores no){
 		if (no != null){
-			if (chave < no.getInfo().getIdMorador()){
-				no = pesquisar (chave, no.getEsq());
+			if (idMorador < no.getInfo().getIdMorador()){
+				no = pesquisar (idMorador, no.getEsq());
 			}else{
-				if (chave > no.getInfo().getIdMorador()){
-					no = pesquisar (chave, no.getDir());
+				if (idMorador > no.getInfo().getIdMorador()){
+					no = pesquisar (idMorador, no.getDir());
 				}
 			}
 		}
@@ -74,9 +74,9 @@ public class ArvoreMorador {
 	
 	//remove um determinado nó procurando pela chave. O nó pode estar em qualquer
 	//posição na árvore
-	public boolean remover (int chave){
-		if (pesquisar (chave, this.raiz) != null){
-			this.raiz = remover (chave, this.raiz);
+	public boolean remover (int idMorador){
+		if (pesquisar (idMorador, this.raiz) != null){
+			this.raiz = remover (idMorador, this.raiz);
 			this.quantNos--;
 			return true;
 		}
@@ -85,12 +85,12 @@ public class ArvoreMorador {
 		}
 	}
 	
-	public NoArvMoradores remover (int chave, NoArvMoradores arv){
-		if (chave < arv.getInfo().getIdMorador()){
-			arv.setEsq(remover (chave, arv.getEsq()));
+	public NoArvMoradores remover (int idMorador, NoArvMoradores arv){
+		if (idMorador < arv.getInfo().getIdMorador()){
+			arv.setEsq(remover (idMorador, arv.getEsq()));
 		}else{
-			if (chave > arv.getInfo().getIdMorador()){
-				arv.setDir(remover (chave, arv.getDir()));
+			if (idMorador > arv.getInfo().getIdMorador()){
+				arv.setDir(remover (idMorador, arv.getDir()));
 			}else{
 				if (arv.getDir()== null){
 					return arv.getEsq();
