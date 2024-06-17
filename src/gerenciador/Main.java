@@ -1,4 +1,5 @@
-package teste;
+package gerenciador;
+
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -10,34 +11,31 @@ import dados.ItemMorador;
 import menu.Formatacao;
 import menu.Menu;
 
-public class TestePigas {
+/*
+ * Inserir (Condominio, Morador)
+ * Pesquisar (APs Vagas, QuantTotal de Pss)
+ * Remover (Condominio, Morador)
+ * Caminhamento
+ * 	- pre fixado
+ * 	- central
+ * 	- pos fixado
+ */
+
+public class Main {
 	static Formatacao format = new Formatacao();
 	static Scanner entrada = new Scanner(System.in);
 	static Menu menu = new Menu();
-
-
-	static final String[] OpcMenuPrin = {
-			"Sair",
-			"Árvore Condomínios",
-			"Árvore Moradores",
-			"Créditos",
-	};
-	static final String[] OpcMenuArv = {
-			"Voltar",
-			"Inserir",
-			"Remover",
-			"Pesquisar",
-			"Exibir Árvore",
-	};
-
+	
 
 	public static void main(String[] args) throws IOException, InterruptedException {
+		// Árvores
 		ArvoreCondominio arvCond = new ArvoreCondominio();
 		ArvoreMorador arvMorador = new ArvoreMorador();
 
 		// Váriaveis relacionadas às árvores
 		int quantAP, quantMoradores, numAP, numCond;
 		String nomeCond, adm, endereco, nomeResponsavel;
+		String nomeArv = "";
 
 		ItemCondominio[] vetorItemCond = new ItemCondominio[5]; 
 		ItemMorador[] vetorItemMorador = new ItemMorador[30];
@@ -45,41 +43,53 @@ public class TestePigas {
 		boolean isMenuPrincipal = true;
 		boolean isArvCondominio = false;
 		boolean isArvMorador = false;
-		
-		char escolha;
-		int escolhaInt = 0;
 
+		int escolhaInt = 0;
 
 		do {
 			if (isMenuPrincipal) {
 				menu.menuPrincipal();
 
 			} else if (isArvCondominio) {
-				menu.menuArvore("Condomínios");
-				
+				menu.menuArvore("Condomínio");
+
 			} else if (isArvMorador) {
-				menu.menuArvore("Moradores");
-				
+				menu.menuArvore("Morador");
+
 			}
-			
+
 			System.out.print("| Informe sua escolha: ");
-			escolha = entrada.next().charAt(0);
-			escolhaInt = Integer.parseInt(String.valueOf((char)escolha));
+			escolhaInt = Integer.parseInt(String.valueOf((char)entrada.next().charAt(0)));
 
-
+				
+			format.limparTerminal();
+			
+			
 			if (isMenuPrincipal) {
 				if (escolhaInt == 0) {
 					break;
 
 				}
+			} else {
+				if (isArvCondominio) {
+					nomeArv = "Condomínio";
+
+				} else if (isArvMorador) {
+					nomeArv = "Morador";
+					
+				}
 			}
+
 
 			switch (escolhaInt) {
 			case 0: 
 				if (!isMenuPrincipal) {
 					isMenuPrincipal = true;
 					isArvCondominio = false;
+					isArvMorador = false;
 					
+					format.titulo("Voltar");
+
 				}
 				break;
 
@@ -88,128 +98,161 @@ public class TestePigas {
 				if (isMenuPrincipal) {
 					isArvCondominio = true;
 					isMenuPrincipal = false;
+					isArvMorador = false;
 
 				} else {
+					menu.menuArvoreInserir(nomeArv);
+					
 					if (isArvCondominio) {
 						// Perguntar valores para inserir na Arvore Condominio
 						System.out.print(" | Nome do Condomínio: ");
-						nomeCond = entrada.next();
-						entrada.next();
+						entrada.nextLine();
+						nomeCond = entrada.nextLine();
 
 						System.out.print(" | Administrador do Condomínio: ");
-						adm = entrada.next();
+						adm = entrada.nextLine();
 
 						System.out.print(" | Endereço: ");
-						endereco = entrada.next();
+						endereco = entrada.nextLine();
 
 						System.out.print(" | Quantidade de Apartamentos:");
 						quantAP = entrada.nextInt();
 
+						format.linha();
+						
 						if (endereco.equals("")) {
 							if (arvCond.inserir(new ItemCondominio(nomeCond, adm, endereco, quantAP))){
-								format.mensagemTerminal(false, "Inserção efetuada com sucesso..."); // escolher entre essa linha ou a debaixo
-								System.out.println("[INFO] - Inserção efetuada com sucesso...");
+								format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
 
 							} else {
-								format.mensagemTerminal(true, "Inserção não efetuada, valor já existe"); // escolher entre essa linha ou a debaixo
-								System.out.println("[ERRO] - Inserção não efetuada, valor já existe");
+								format.mensagemTerminal(true, "Inserção não efetuada, valor já existe");
+							
 							}		
-
 						} else {
 							if (arvCond.inserir(new ItemCondominio(nomeCond, adm, quantAP))){
-								System.out.println("[INFO] - Inserção efetuada com sucesso...");
+								format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
 
 							} else {
-								System.out.println("[ERRO] - Inserção não efetuada, valor já existe");
-								
+								format.mensagemTerminal(true, "Inserção não efetuada, valor já existe");
+
 							}							
 						}
 
 					} else if (isArvMorador) {
 						// Perguntar valores para inserir na Arvore Morador
 						System.out.print(" | Nome do Responsável: ");
-						nomeResponsavel = entrada.next();
+						entrada.nextLine();
+						nomeResponsavel = entrada.nextLine();
 
-						System.out.print(" | Administrador do Condomínio: ");
+						System.out.print(" | Quantidade de Moradores: ");
 						quantMoradores = entrada.nextInt();
 
-						System.out.print(" | Endereço: ");
+						System.out.print(" | Número Apartamento: ");
 						numAP = entrada.nextInt();
 
-						System.out.print(" | Número da :");
+						System.out.print(" | Número do Condomínio :");
 						numCond = entrada.nextInt();
 
+						format.linha();
+						
 						if (arvMorador.inserir(new ItemMorador(nomeResponsavel, quantMoradores, numAP, numCond))){
-							System.out.println("[INFO] - Inserção efetuada com sucesso...");
+							format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
 
 						} else {
-							System.out.println("[ERRO] - Inserção não efetuada, valor já existe");
+							format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
 							
 						}
 					} else {
-						System.out.println("[ERRO] - Problema inesperado, retornando ao menu principal.");
-						
+						format.linha();
+						format.mensagemTerminal(true, "Problema inesperado, retornando ao menu principal.");
+
 					}
+					
+					menu.delay(2);
 				}
 				break;
 
-			case 2: 
-				break;
+			case 2:
+				// Árvore Moradores e Remover
+				if (isMenuPrincipal) {
+					isArvMorador = true;
+					isArvCondominio = false;
+					isMenuPrincipal = false;
+					
+				} else {
+					menu.menuArvoreRemover(nomeArv);
+					
+				}
 				
+				break;
+
 			case 3:
 				// Créditos e Pesquisar
 				if (isMenuPrincipal) {
 					menu.creditos();
-					
-				} 
+
+				} else {
+					menu.menuArvorePesquisar(nomeArv);
+				
+				}
 				break;
 
 			case 4:
 				// Exibir Árvore
-				if (!isMenuPrincipal) {
+				if (isMenuPrincipal) {
+					format.mensagemTerminal(true, "Número informado fora das escolhas esperadas pelo sistema.");
+					
+				} else {
+					menu.menuExibirArvore(nomeArv);
+					
 					if (arvCond.eVazia() && arvMorador.eVazia()) {
-						System.out.println("A árvore está vazia");						
+						format.mensagemTerminal(false, "A árvore está vazia");
 
 					} else if (isArvCondominio) {
 						vetorItemCond = arvCond.CamCentral();
 						String msg=" ";
-						
+
 						for (int i=0; i<arvCond.getQuantNos();i++){
-							msg+= vetorItemCond[i].getNomeCond()+"; ";
+							msg+= "\n	" + (i + 1) + "° - " + vetorItemCond[i].getNomeCond() + ";";
 						}
-						
-						System.out.println("Exibir a árvore: "
-								+ "\n	| "+ msg);
-						
+
+						System.out.println("| Exibir a árvore: " + msg);
+
 					} else if (isArvMorador) {
 						vetorItemMorador = arvMorador.CamCentral();
 						String msg=" ";
-						
+
 						for (int i=0; i<arvMorador.getQuantNos();i++){
-							msg+= vetorItemMorador[i].getNomeResonsavel()+"; ";
+							msg+= "\n	" + (i + 1) + "° - " + vetorItemMorador[i].getNomeResonsavel() + ";";
 						}
-						
-						System.out.println("Exibir a árvore: "
-								+ "\n	| "+ msg);
+
+						System.out.println("| Exibir a árvore: " + msg);
 					}
+					menu.delay(3);
 				}
 				break;
 
 			default:
-				System.out.println("[ERRO] - Número informado fora das escolhas esperadas pelo sistema.");
-				
-			}			
+				format.mensagemTerminal(true, "Número informado fora das escolhas esperadas pelo sistema.");
+			
+			}
+
 			format.limparTerminal();
+		
 		} while (true);
 
-		System.out.println("[INFO] - Finalizando o Programa...");	
+		format.mensagemTerminal(false, "Finalizando o Programa...");
 
 		entrada.close();
 		System.exit(0);
 	}
+
 	/*
+	 * Diogo Rocha da Silva Pelanda
 	 * Thiago Holz Coutinho
+	 * Vinicius Rocha Aleixo
 	 * 
-	 * Copyright Pigas22
+	 * Copyright TVD
 	 */
 }
+
