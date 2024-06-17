@@ -33,7 +33,7 @@ public class Main {
 		ArvoreMorador arvMorador = new ArvoreMorador();
 
 		// Váriaveis relacionadas às árvores
-		int quantAP, quantMoradores, numAP, numCond;
+		int idCond, idMorador, quantAP, quantMoradores, numAP, numCond;
 		String nomeCond, adm, endereco, nomeResponsavel;
 		String nomeArv = "";
 
@@ -105,15 +105,18 @@ public class Main {
 					
 					if (isArvCondominio) {
 						// Perguntar valores para inserir na Arvore Condominio
+						System.out.print(" | Número de Identificação (ID): ");
+						idCond = entrada.nextInt();
+						
 						System.out.print(" | Nome do Condomínio: ");
 						entrada.nextLine();
-						nomeCond = entrada.nextLine();
+						nomeCond = entrada.nextLine().strip();
 
 						System.out.print(" | Administrador do Condomínio: ");
-						adm = entrada.nextLine();
+						adm = entrada.nextLine().strip();
 
 						System.out.print(" | Endereço: ");
-						endereco = entrada.nextLine();
+						endereco = entrada.nextLine().strip();
 
 						System.out.print(" | Quantidade de Apartamentos:");
 						quantAP = entrada.nextInt();
@@ -121,7 +124,7 @@ public class Main {
 						format.linha();
 						
 						if (endereco.equals("")) {
-							if (arvCond.inserir(new ItemCondominio(nomeCond, adm, endereco, quantAP))){
+							if (arvCond.inserir(new ItemCondominio(idCond, nomeCond, adm, endereco, quantAP))){
 								format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
 
 							} else {
@@ -129,7 +132,7 @@ public class Main {
 							
 							}		
 						} else {
-							if (arvCond.inserir(new ItemCondominio(nomeCond, adm, quantAP))){
+							if (arvCond.inserir(new ItemCondominio(idCond, nomeCond, adm, quantAP))){
 								format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
 
 							} else {
@@ -140,9 +143,12 @@ public class Main {
 
 					} else if (isArvMorador) {
 						// Perguntar valores para inserir na Arvore Morador
+						System.out.print(" | Número de Identificação (ID): ");
+						idMorador = entrada.nextInt();
+						
 						System.out.print(" | Nome do Responsável: ");
 						entrada.nextLine();
-						nomeResponsavel = entrada.nextLine();
+						nomeResponsavel = entrada.nextLine().strip();
 
 						System.out.print(" | Quantidade de Moradores: ");
 						quantMoradores = entrada.nextInt();
@@ -155,7 +161,7 @@ public class Main {
 
 						format.linha();
 						
-						if (arvMorador.inserir(new ItemMorador(nomeResponsavel, quantMoradores, numAP, numCond))){
+						if (arvMorador.inserir(new ItemMorador(idMorador, nomeResponsavel, quantMoradores, numAP, numCond))){
 							format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
 
 						} else {
@@ -212,23 +218,29 @@ public class Main {
 						vetorItemCond = arvCond.CamCentral();
 						String msg=" ";
 
-						for (int i=0; i<arvCond.getQuantNos();i++){
-							msg+= "\n	" + (i + 1) + "° - " + vetorItemCond[i].getNomeCond() + ";";
+						for (int i = 0; i < arvCond.getQuantNos(); i++){
+							msg+= "\n	" + vetorItemCond[i].getIdCond() + " - " + vetorItemCond[i].getNomeCond() + ";";
 						}
 
-						System.out.println("| Exibir a árvore: " + msg);
+						System.out.println("| Exibir a árvore: "
+										 + "\n	[ID]   |   [Responsável]" 
+										 + msg);
 
 					} else if (isArvMorador) {
 						vetorItemMorador = arvMorador.CamCentral();
 						String msg=" ";
 
-						for (int i=0; i<arvMorador.getQuantNos();i++){
-							msg+= "\n	" + (i + 1) + "° - " + vetorItemMorador[i].getNomeResonsavel() + ";";
+						for (int i = 0; i < arvMorador.getQuantNos(); i++){
+							msg+= "\n	" + vetorItemMorador[i].getIdMorador() + " - " + vetorItemMorador[i].getNomeResonsavel() + ";";
 						}
 
-						System.out.println("| Exibir a árvore: " + msg);
+						System.out.println("| Exibir a árvore: "
+										 + "\n	[ID] - [Responsável]" 	
+										 + msg);
 					}
-					menu.delay(3);
+					
+					
+					menu.delay(8);
 				}
 				break;
 

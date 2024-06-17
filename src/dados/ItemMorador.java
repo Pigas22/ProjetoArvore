@@ -1,20 +1,18 @@
 package dados;
 
 public class ItemMorador {
-	private static int NumInstance = 0;
 	private int idMorador;
-	
 	private String nomeResonsavel;
+
 	private int quantMoradores;
-	
 	private int numAP;
+
 	private int numCond;
-	
 	private boolean isVago = true;
 	
 	
-	public ItemMorador(String nomeResonsavel, int quantMoradores, int numAP, int numCond) {
-		this.idMorador = NumInstance++;
+	public ItemMorador(int idMorador, String nomeResonsavel, int quantMoradores, int numAP, int numCond) {
+		this.idMorador = idMorador;
 		this.nomeResonsavel = nomeResonsavel;
 		
 		this.quantMoradores = quantMoradores;

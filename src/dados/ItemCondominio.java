@@ -2,27 +2,26 @@ package dados;
 
 
 public class ItemCondominio {
-	private static int NumInstance = 0;
 	private int idCond;
-	
 	private String nomeCond;
+
 	private String adm; 
-	
 	private String endereco = ""; // Opcional
+
 	private int quantAP;
 	
 
 	// Construtor sem Endereco
-	public ItemCondominio(String nomeCond, String adm, int quantAP) {
-		this.idCond = NumInstance++;
+	public ItemCondominio(int idCond, String nomeCond, String adm, int quantAP) {
+		this.idCond = idCond;
 		this.nomeCond = nomeCond;
 		this.adm = adm;
 		this.quantAP = quantAP;
 	}
 	
 	// Construtor com Endereco
-	public ItemCondominio(String nomeCond, String adm, String endereco, int quantAP) {
-		this.idCond = NumInstance++;
+	public ItemCondominio(int idCond, String nomeCond, String adm, String endereco, int quantAP) {
+		this.idCond = idCond;
 		this.nomeCond = nomeCond;
 		this.adm = adm;
 		this.endereco = endereco;
