@@ -34,7 +34,8 @@ public class Main {
 
 		// Váriaveis relacionadas às árvores
 		int idCond, idMorador, quantAP, quantMoradores, numAP, numCond;
-		String nomeCond, adm, endereco, nomeResponsavel;
+		String nomeCond, adm, endereco, nomeResponsavel, strMaisDetalhes;
+		char maisDetalhes;
 		String nomeArv = "";
 
 		ItemCondominio[] vetorItemCond = new ItemCondominio[5]; 
@@ -88,7 +89,7 @@ public class Main {
 					isArvCondominio = false;
 					isArvMorador = false;
 					
-					format.titulo("Voltar");
+					menu.titulo("Voltar");
 
 				}
 				break;
@@ -118,12 +119,12 @@ public class Main {
 						System.out.print(" | Endereço: ");
 						endereco = entrada.nextLine().strip();
 
-						System.out.print(" | Quantidade de Apartamentos:");
+						System.out.print(" | Quantidade de Apartamentos: ");
 						quantAP = entrada.nextInt();
 
-						format.linha();
+						menu.linha();
 						
-						if (endereco.equals("")) {
+						if (!endereco.equals("")) {
 							if (arvCond.inserir(new ItemCondominio(idCond, nomeCond, adm, endereco, quantAP))){
 								format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
 
@@ -156,10 +157,10 @@ public class Main {
 						System.out.print(" | Número Apartamento: ");
 						numAP = entrada.nextInt();
 
-						System.out.print(" | Número do Condomínio :");
+						System.out.print(" | Número do Condomínio: ");
 						numCond = entrada.nextInt();
 
-						format.linha();
+						menu.linha();
 						
 						if (arvMorador.inserir(new ItemMorador(idMorador, nomeResponsavel, quantMoradores, numAP, numCond))){
 							format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
@@ -169,7 +170,7 @@ public class Main {
 							
 						}
 					} else {
-						format.linha();
+						menu.linha();
 						format.mensagemTerminal(true, "Problema inesperado, retornando ao menu principal.");
 
 					}
@@ -210,35 +211,66 @@ public class Main {
 					
 				} else {
 					menu.menuExibirArvore(nomeArv);
+					String strID;
+					String msg=" ";
+					int i = 0;
 					
 					if (arvCond.eVazia() && arvMorador.eVazia()) {
-						format.mensagemTerminal(false, "A árvore está vazia");
+						format.mensagemTerminal(true, "A árvore está vazia");
+						break;
 
 					} else if (isArvCondominio) {
 						vetorItemCond = arvCond.CamCentral();
-						String msg=" ";
 
-						for (int i = 0; i < arvCond.getQuantNos(); i++){
-							msg+= "\n	" + vetorItemCond[i].getIdCond() + " - " + vetorItemCond[i].getNomeCond() + ";";
+						for (i = 0; i < arvCond.getQuantNos(); i++){
+							strID = Integer.toString(vetorItemCond[i].getIdCond());
+							
+							msg+= "\n" + format.centralizarTabela(strID) + " - " + vetorItemCond[i].getNomeCond() + ";";
+
 						}
-
-						System.out.println("| Exibir a árvore: "
-										 + "\n	[ID]   |   [Responsável]" 
-										 + msg);
-
 					} else if (isArvMorador) {
 						vetorItemMorador = arvMorador.CamCentral();
-						String msg=" ";
-
-						for (int i = 0; i < arvMorador.getQuantNos(); i++){
-							msg+= "\n	" + vetorItemMorador[i].getIdMorador() + " - " + vetorItemMorador[i].getNomeResonsavel() + ";";
+						
+						for (i = 0; i < arvMorador.getQuantNos(); i++){
+							strID = Integer.toString(vetorItemMorador[i].getIdMorador());
+							
+							msg+= "\n" + format.centralizarTabela(strID) + " - " + vetorItemMorador[i].getNomeResonsavel() + ";";
+						
 						}
-
-						System.out.println("| Exibir a árvore: "
-										 + "\n	[ID] - [Responsável]" 	
-										 + msg);
 					}
+					System.out.println("| Exibir a árvore: "
+							+ "\n" + format.centralizarTabela("[ID]") + " - [Nome]"
+							+ msg);
 					
+					
+					menu.delay(2);
+					menu.linha();
+					
+					System.out.print("Exibir mais detalhes? [S/N] ");
+					maisDetalhes = entrada.next().toUpperCase().charAt(0);
+					strMaisDetalhes = Character.toString(maisDetalhes).toUpperCase();
+					
+					format.limparTerminal();
+					
+					if (strMaisDetalhes.equals("S")) {
+						String msgDetalhada = "";
+						
+						if (isArvCondominio) {
+							for (i = 0; i < arvCond.getQuantNos(); i++){
+								msgDetalhada += "\n" + vetorItemCond[i].toString() + ";\n";
+
+							}
+						} else if (isArvMorador) {
+							for (i = 0; i < arvMorador.getQuantNos(); i++){
+								msgDetalhada += "\n" + vetorItemMorador[i].toString() + ";\n";
+							
+							}
+						}
+						System.out.println("| Exibir Detelhes: "
+								+ "\n" + msgDetalhada);
+						
+						menu.linha();
+					}
 					
 					menu.delay(8);
 				}

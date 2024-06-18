@@ -9,6 +9,8 @@ import java.util.Scanner;
 public class Menu {
 	static Formatacao format = new Formatacao();
 	static Scanner entrada = new Scanner(System.in);
+	private String caracteres;
+	private int numEspacamentoUni;
 
 	static final String[] OpcMenuPrin = {
 			"Sair",
@@ -27,23 +29,44 @@ public class Menu {
 	
 	// Construtor
 	public Menu() {
+		this.caracteres = format.getCaracteres();
+		this.numEspacamentoUni = format.getNumEspacamentoUni();
 	}
+	
+	
+	public void linha() {
+		String msg = "";
+		
+		for (int i = 0; i < (2*this.numEspacamentoUni + 1); i++) {
+			msg += this.caracteres;
+		}
+		
+		System.out.println(msg);
+	}
+	
+	
+	public void titulo(String texto) {
+		linha();
+		format.centralizar(texto);
+		linha();
+	}
+	
 	
 
 	public void menuPrincipal () {
-		format.titulo("Menu Principal");
+		titulo("Menu Principal");
 
 		System.out.println("[ 0 ] - Sair"
 				+ "\n[ 1 ] - Árvore Condomínios"
 				+ "\n[ 2 ] - Árvore Moradores"
 				+ "\n[ 3 ] - Créditos");
 
-		format.linha();
+		linha();
 	}
 
 
 	public void menuArvore (String nomeArv) {
-		format.titulo("Menu - Árvore " + nomeArv);
+		titulo("Menu - Árvore " + nomeArv);
 
 		System.out.println("[ 0 ] - Voltar"
 				+ "\n[ 1 ] - Inserir"
@@ -51,27 +74,27 @@ public class Menu {
 				+ "\n[ 3 ] - Pesquisar"
 				+ "\n[ 4 ] - Exibir Árvore");
 
-		format.linha();
+		linha();
 	}	
 
 	
 	public void menuArvoreInserir (String nomeArv) {
-		format.titulo("Inserir - Árvore " + nomeArv);
+		titulo("Inserir - Árvore " + nomeArv);
 	}
 	
 	
 	public void menuArvoreRemover (String nomeArv) {
-		format.titulo("Remover - Árvore " + nomeArv);
+		titulo("Remover - Árvore " + nomeArv);
 	}
 	
 	
 	public void menuArvorePesquisar (String nomeArv) {
-		format.titulo("Pesquisar - Árvore " + nomeArv);
+		titulo("Pesquisar - Árvore " + nomeArv);
 	}
 	
 	
 	public void menuExibirArvore (String nomeArv) {
-		format.titulo("Exibir Árvore - Árvore " + nomeArv);
+		titulo("Exibir Árvore - Árvore " + nomeArv);
 	}
 	
 
@@ -79,7 +102,7 @@ public class Menu {
 		char abrirNav;
 		String strAbrirNav;
 		
-		format.titulo("Créditos");
+		titulo("Créditos");
 
 		format.centralizar("Diogo Rocha da Silva Pelanda");
 		format.centralizar("Thiago Holz Coutinho");
@@ -89,7 +112,7 @@ public class Menu {
 				+ "\n"
 				+ "\nLink do GitHub do Projeto:");
 		format.centralizar("- https://github.com/Pigas22/ProjetoArvore/");
-		format.linha(); 
+		linha(); 
 
 		System.out.print("Abrir Link no navegador? [S/N] ");
 		abrirNav = entrada.next().toUpperCase().charAt(0);

@@ -12,17 +12,6 @@ public class Formatacao {
 	}
 	
 	
-	public void linha() {
-		String msg = "";
-		
-		for (int i = 0; i < (2*this.numEspacamentoUni + 1); i++) {
-			msg += this.caracteres;
-		}
-		
-		System.out.println(msg);
-	}
-	
-	
 	public void centralizar(String texto) {
 		String strEspacamento = "";
 		int tamanhoEspacamento = this.numEspacamentoUni * 2 - (texto.length() / 2); // Dobra do Tamanho do Espacamento
@@ -34,10 +23,15 @@ public class Formatacao {
 		System.out.println(strEspacamento + " " +  texto);
 	}
 	
-	public void titulo(String texto) {
-		linha();
-		centralizar(texto);
-		linha();
+	public String centralizarTabela (String texto) {
+		String strEspacamento = "";
+		int tamanhoEspacamento = this.numEspacamentoUni - texto.length(); // Dobra do Tamanho do Espacamento
+		
+		for (int i = 0; i < tamanhoEspacamento; i++) {
+			strEspacamento += " ";			
+		}
+		
+		return strEspacamento + texto;
 	}
 	
 	
