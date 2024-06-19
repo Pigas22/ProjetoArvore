@@ -2,6 +2,11 @@ package menu;
 
 import java.io.IOException;
 
+import arvores.ArvoreCondominio;
+import arvores.ArvoreMorador;
+import dados.ItemCondominio;
+import dados.ItemMorador;
+
 public class Formatacao {
 	private int numEspacamentoUni = 12;
 	private String caracteres = "-="; // Mantenha 2 Caracteres
@@ -55,8 +60,58 @@ public class Formatacao {
     		
     	}    	
     }
-
     
+	
+	public String dadosArvore(ArvoreCondominio arvCond, ItemCondominio[] vetorItemCond) {
+		vetorItemCond = arvCond.CamCentral();
+		String msg = "";
+
+		for (int i = 0; i < arvCond.getQuantNos(); i++){
+			msg+= "\n" + centralizarTabela(vetorItemCond[i].getStrID())
+										+ " - " + vetorItemCond[i].getNomeCond() + ";";
+
+		}
+		return msg;
+	}
+	
+	
+	public String dadosArvore(ArvoreMorador arvMorador, ItemMorador[] vetorItemMorador) {
+		vetorItemMorador = arvMorador.CamCentral();
+		String msg = "";
+		
+		for (int i = 0; i < arvMorador.getQuantNos(); i++){
+			msg+= "\n" + centralizarTabela(vetorItemMorador[i].getStrID()) 
+										+ " - " + vetorItemMorador[i].getNomeResonsavel() + ";";
+		
+		}
+		return msg;
+	}
+	
+	
+	public String detalhaDadosArvore (ArvoreCondominio arvCond, ItemCondominio[] vetorItemCond) {
+		String msgDetalhada = "";
+		
+		for (int i = 0; i < arvCond.getQuantNos(); i++){
+			msgDetalhada += "\n" + vetorItemCond[i].toString() + ";\n";
+
+		}
+		
+		return msgDetalhada;
+	}
+
+	
+	public String detalhaDadosArvore (ArvoreMorador arvMorador, ItemMorador[] vetorItemMorador) {
+		String msgDetalhada = "";
+		
+		for (int i = 0; i < arvMorador.getQuantNos(); i++){
+			msgDetalhada += "\n" + vetorItemMorador[i].toString() + ";\n";
+			
+		}
+		
+		return msgDetalhada;
+	}
+	
+	
 	public int getNumEspacamentoUni() {
 		return numEspacamentoUni;
 	}

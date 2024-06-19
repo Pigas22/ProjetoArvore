@@ -6,11 +6,18 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Scanner;
 
+import arvores.ArvoreCondominio;
+import arvores.ArvoreMorador;
+import dados.ItemCondominio;
+import dados.ItemMorador;
+
+
 public class Menu {
 	static Formatacao format = new Formatacao();
 	static Scanner entrada = new Scanner(System.in);
 	private String caracteres;
 	private int numEspacamentoUni;
+	
 
 	static final String[] OpcMenuPrin = {
 			"Sair",
@@ -78,23 +85,47 @@ public class Menu {
 	}	
 
 	
-	public void menuArvoreInserir (String nomeArv) {
-		titulo("Inserir - Árvore " + nomeArv);
+	public void exibirArvore(ArvoreCondominio arvCond, ItemCondominio[] vetorItemCond) {
+		String msg = format.dadosArvore(arvCond, vetorItemCond);
+		
+		titulo("Exibir Árvore - Árvore " + arvCond.getNOME());
+		System.out.println("| Exibir a árvore: "
+				+ "\n" + format.centralizarTabela("[ID]") + " - [Nome]"
+				+ msg);
+		
+		linha();
 	}
 	
 	
-	public void menuArvoreRemover (String nomeArv) {
-		titulo("Remover - Árvore " + nomeArv);
+	public void exibirArvore(ArvoreMorador arvMorador, ItemMorador[] vetorItemMorador) {
+		String msg = format.dadosArvore(arvMorador, vetorItemMorador);
+		
+		titulo("Exibir Árvore - Árvore " + arvMorador.getNOME());
+		System.out.println("| Exibir a árvore: "
+				+ "\n" + format.centralizarTabela("[ID]") + " - [Nome]"
+				+ msg);
+		
+		linha();
 	}
 	
 	
-	public void menuArvorePesquisar (String nomeArv) {
-		titulo("Pesquisar - Árvore " + nomeArv);
+	public void exibirDetalhesArvore(ArvoreCondominio arvCond, ItemCondominio[] vetorItemCond) {
+		String msgDetalhada = format.detalhaDadosArvore(arvCond, vetorItemCond);
+		
+		System.out.println("| Exibir Detelhes: "
+				+ "\n" + msgDetalhada);
+		
+		linha();
 	}
+
 	
-	
-	public void menuExibirArvore (String nomeArv) {
-		titulo("Exibir Árvore - Árvore " + nomeArv);
+	public void exibirDetalhesArvore(ArvoreMorador arvMorador, ItemMorador[] vetorItemMorador) {
+		String msgDetalhada = format.detalhaDadosArvore(arvMorador, vetorItemMorador);
+		
+		System.out.println("| Exibir Detelhes: "
+				+ "\n" + msgDetalhada);
+		
+		linha();
 	}
 	
 

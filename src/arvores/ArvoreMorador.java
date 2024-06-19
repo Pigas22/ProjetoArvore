@@ -6,10 +6,16 @@ public class ArvoreMorador {
 	private NoArvMoradores raiz;
 	private int quantNos;//opcional
 	
+	private final String NOME = "Morador";
+	
 	
 	public ArvoreMorador(){
 		this.quantNos=0;
 		this.raiz = null;
+	}
+	
+	public String getNOME() {
+		return this.NOME;
 	}
 	
 	public boolean eVazia (){

@@ -73,10 +73,10 @@ public class Main {
 				}
 			} else {
 				if (isArvCondominio) {
-					nomeArv = "Condomínio";
+					nomeArv = arvCond.getNOME();
 
 				} else if (isArvMorador) {
-					nomeArv = "Morador";
+					nomeArv = arvMorador.getNOME();
 					
 				}
 			}
@@ -102,7 +102,7 @@ public class Main {
 					isArvMorador = false;
 
 				} else {
-					menu.menuArvoreInserir(nomeArv);
+					menu.titulo("Inserir - Árvore " + nomeArv);
 					
 					if (isArvCondominio) {
 						// Perguntar valores para inserir na Arvore Condominio
@@ -187,7 +187,7 @@ public class Main {
 					isMenuPrincipal = false;
 					
 				} else {
-					menu.menuArvoreRemover(nomeArv);
+					menu.titulo("Remover - Árvore " + nomeArv);
 					
 				}
 				
@@ -199,7 +199,7 @@ public class Main {
 					menu.creditos();
 
 				} else {
-					menu.menuArvorePesquisar(nomeArv);
+					menu.titulo("Pesquisar - Árvore " + nomeArv);
 				
 				}
 				break;
@@ -210,11 +210,6 @@ public class Main {
 					format.mensagemTerminal(true, "Número informado fora das escolhas esperadas pelo sistema.");
 					
 				} else {
-					menu.menuExibirArvore(nomeArv);
-					String strID;
-					String msg=" ";
-					int i = 0;
-					
 					if (arvCond.eVazia() && arvMorador.eVazia()) {
 						format.mensagemTerminal(true, "A árvore está vazia");
 						break;
@@ -222,29 +217,15 @@ public class Main {
 					} else if (isArvCondominio) {
 						vetorItemCond = arvCond.CamCentral();
 
-						for (i = 0; i < arvCond.getQuantNos(); i++){
-							strID = Integer.toString(vetorItemCond[i].getIdCond());
-							
-							msg+= "\n" + format.centralizarTabela(strID) + " - " + vetorItemCond[i].getNomeCond() + ";";
-
-						}
+						menu.exibirArvore(arvCond, vetorItemCond);
+						
 					} else if (isArvMorador) {
 						vetorItemMorador = arvMorador.CamCentral();
 						
-						for (i = 0; i < arvMorador.getQuantNos(); i++){
-							strID = Integer.toString(vetorItemMorador[i].getIdMorador());
-							
-							msg+= "\n" + format.centralizarTabela(strID) + " - " + vetorItemMorador[i].getNomeResonsavel() + ";";
-						
-						}
+						menu.exibirArvore(arvMorador, vetorItemMorador);
 					}
-					System.out.println("| Exibir a árvore: "
-							+ "\n" + format.centralizarTabela("[ID]") + " - [Nome]"
-							+ msg);
-					
-					
+
 					menu.delay(2);
-					menu.linha();
 					
 					System.out.print("Exibir mais detalhes? [S/N] ");
 					maisDetalhes = entrada.next().toUpperCase().charAt(0);
@@ -253,25 +234,14 @@ public class Main {
 					format.limparTerminal();
 					
 					if (strMaisDetalhes.equals("S")) {
-						String msgDetalhada = "";
-						
 						if (isArvCondominio) {
-							for (i = 0; i < arvCond.getQuantNos(); i++){
-								msgDetalhada += "\n" + vetorItemCond[i].toString() + ";\n";
-
-							}
-						} else if (isArvMorador) {
-							for (i = 0; i < arvMorador.getQuantNos(); i++){
-								msgDetalhada += "\n" + vetorItemMorador[i].toString() + ";\n";
+							menu.exibirDetalhesArvore(arvCond, vetorItemCond);
 							
-							}
+						} else if (isArvMorador) {
+							menu.exibirDetalhesArvore(arvMorador, vetorItemMorador);
+							
 						}
-						System.out.println("| Exibir Detelhes: "
-								+ "\n" + msgDetalhada);
-						
-						menu.linha();
 					}
-					
 					menu.delay(8);
 				}
 				break;

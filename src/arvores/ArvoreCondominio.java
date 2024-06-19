@@ -7,10 +7,16 @@ public class ArvoreCondominio {
 	private NoArvCondominio raiz;
 	private int quantNos;//opcional
 	
+	private final String NOME = "Condomínio";
+	
 	
 	public ArvoreCondominio(){
 		this.quantNos=0;
 		this.raiz = null;
+	}
+	
+	public String getNOME() {
+		return this.NOME;
 	}
 	
 	public boolean eVazia (){

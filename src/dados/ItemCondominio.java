@@ -9,24 +9,33 @@ public class ItemCondominio {
 	private String endereco = ""; // Opcional
 
 	private int quantAP;
+	private String strID;
 	
 
 	// Construtor sem Endereco
 	public ItemCondominio(int idCond, String nomeCond, String adm, int quantAP) {
 		this.idCond = idCond;
 		this.nomeCond = nomeCond;
+		
 		this.adm = adm;
 		this.quantAP = quantAP;
+		
+		this.strID = Integer.toString(this.getIdCond());
 	}
+	
 	
 	// Construtor com Endereco
 	public ItemCondominio(int idCond, String nomeCond, String adm, String endereco, int quantAP) {
 		this.idCond = idCond;
 		this.nomeCond = nomeCond;
+		
 		this.adm = adm;
 		this.endereco = endereco;
+		
 		this.quantAP = quantAP;
+		this.strID = Integer.toString(this.getIdCond());
 	}
+	
 	
 	@Override
     public String toString() {
@@ -44,7 +53,12 @@ public class ItemCondominio {
 	public int getIdCond() {
 		return this.idCond;
 	}
+
 	
+	public String getStrID() {
+		return this.strID;
+	}
+		
 	
 	public String getNomeCond() {
 		return nomeCond;

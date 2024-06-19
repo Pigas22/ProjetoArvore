@@ -10,6 +10,8 @@ public class ItemMorador {
 	private int numCond;
 	private boolean isVago = true;
 	
+	private String strID;
+	
 	
 	public ItemMorador(int idMorador, String nomeResonsavel, int quantMoradores, int numAP, int numCond) {
 		this.idMorador = idMorador;
@@ -19,6 +21,7 @@ public class ItemMorador {
 		this.numAP = numAP;
 		
 		this.numCond = numCond;
+		this.strID = Integer.toString(this.getIdMorador());
 		
 		if (quantMoradores != 0) {
 			this.isVago = false;
@@ -41,6 +44,11 @@ public class ItemMorador {
 	
 	public int getIdMorador() {
 		return this.idMorador;
+	}
+
+	
+	public String getStrID() {
+		return this.strID;
 	}
 	
 	
