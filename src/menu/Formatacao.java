@@ -50,17 +50,6 @@ public class Formatacao {
         }
     }
     
-    
-    public void mensagemTerminal(boolean isError, String msg) {
-    	if (isError) {
-    		System.out.println("[ERRO] - " + msg);
-    		
-    	} else {
-    		System.out.println("[INFO] - " + msg);
-    		
-    	}    	
-    }
-    
 	
 	public String dadosArvore(ArvoreCondominio arvCond, ItemCondominio[] vetorItemCond) {
 		vetorItemCond = arvCond.CamCentral();

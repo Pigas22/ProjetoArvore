@@ -129,6 +129,17 @@ public class Menu {
 	}
 	
 
+	public void mensagemTerminal(boolean isError, String msg) {
+    	if (isError) {
+    		System.out.println("[ERRO] - " + msg);
+    		
+    	} else {
+    		System.out.println("[INFO] - " + msg);
+    		
+    	}    	
+    }
+
+
 	public void creditos () {
 		char abrirNav;
 		String strAbrirNav;

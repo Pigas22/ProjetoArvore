@@ -5,22 +5,19 @@ public class ItemMorador {
 	private String nomeResonsavel;
 
 	private int quantMoradores;
-	private int numAP;
-
 	private int numCond;
+
 	private boolean isVago = true;
-	
 	private String strID;
 	
 	
-	public ItemMorador(int idMorador, String nomeResonsavel, int quantMoradores, int numAP, int numCond) {
+	public ItemMorador(int idMorador, String nomeResonsavel, int quantMoradores, int numCond) {
 		this.idMorador = idMorador;
 		this.nomeResonsavel = nomeResonsavel;
 		
-		this.quantMoradores = quantMoradores;
-		this.numAP = numAP;
-		
+		this.quantMoradores = quantMoradores;		
 		this.numCond = numCond;
+
 		this.strID = Integer.toString(this.getIdMorador());
 		
 		if (quantMoradores != 0) {
@@ -35,7 +32,6 @@ public class ItemMorador {
         		+ "\n		id= " + idMorador + ";"
         		+ "\n		nomeResponsavel= " + nomeResonsavel + ";"
         		+ "\n		quantMoradores= " + quantMoradores + ";"
-        		+ "\n		numAP= " + numAP + ";"
         		+ "\n		numCond= " + numCond + ";"
         		+ "}";
 
@@ -65,14 +61,6 @@ public class ItemMorador {
 	}
 	public void setQuantMoradores(int quantMoradores) {
 		this.quantMoradores = quantMoradores;
-	}
-	
-	
-	public int getnumAP() {
-		return numAP;
-	}
-	public void setnumAP(int numAP) {
-		this.numAP = numAP;
 	}
 	
 	

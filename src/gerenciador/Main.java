@@ -33,8 +33,9 @@ public class Main {
 		ArvoreMorador arvMorador = new ArvoreMorador();
 
 		// Váriaveis relacionadas às árvores
-		int idCond, idMorador, quantAP, quantMoradores, numAP, numCond;
+		int id, quantAP, quantMoradores, numCond;
 		String nomeCond, adm, endereco, nomeResponsavel, strMaisDetalhes;
+
 		char maisDetalhes;
 		String nomeArv = "";
 
@@ -107,7 +108,7 @@ public class Main {
 					if (isArvCondominio) {
 						// Perguntar valores para inserir na Arvore Condominio
 						System.out.print(" | Número de Identificação (ID): ");
-						idCond = entrada.nextInt();
+						id = entrada.nextInt();
 						
 						System.out.print(" | Nome do Condomínio: ");
 						entrada.nextLine();
@@ -125,19 +126,19 @@ public class Main {
 						menu.linha();
 						
 						if (!endereco.equals("")) {
-							if (arvCond.inserir(new ItemCondominio(idCond, nomeCond, adm, endereco, quantAP))){
-								format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
+							if (arvCond.inserir(new ItemCondominio(id, nomeCond, adm, endereco, quantAP))){
+								menu.mensagemTerminal(false, "Inserção efetuada com sucesso...");
 
 							} else {
-								format.mensagemTerminal(true, "Inserção não efetuada, valor já existe");
+								menu.mensagemTerminal(true, "Inserção não efetuada, valor já existe");
 							
 							}		
 						} else {
-							if (arvCond.inserir(new ItemCondominio(idCond, nomeCond, adm, quantAP))){
-								format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
+							if (arvCond.inserir(new ItemCondominio(id, nomeCond, adm, quantAP))){
+								menu.mensagemTerminal(false, "Inserção efetuada com sucesso...");
 
 							} else {
-								format.mensagemTerminal(true, "Inserção não efetuada, valor já existe");
+								menu.mensagemTerminal(true, "Inserção não efetuada, valor já existe");
 
 							}							
 						}
@@ -145,7 +146,7 @@ public class Main {
 					} else if (isArvMorador) {
 						// Perguntar valores para inserir na Arvore Morador
 						System.out.print(" | Número de Identificação (ID): ");
-						idMorador = entrada.nextInt();
+						id = entrada.nextInt();
 						
 						System.out.print(" | Nome do Responsável: ");
 						entrada.nextLine();
@@ -154,24 +155,21 @@ public class Main {
 						System.out.print(" | Quantidade de Moradores: ");
 						quantMoradores = entrada.nextInt();
 
-						System.out.print(" | Número Apartamento: ");
-						numAP = entrada.nextInt();
-
 						System.out.print(" | Número do Condomínio: ");
 						numCond = entrada.nextInt();
 
 						menu.linha();
 						
-						if (arvMorador.inserir(new ItemMorador(idMorador, nomeResponsavel, quantMoradores, numAP, numCond))){
-							format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
+						if (arvMorador.inserir(new ItemMorador(id, nomeResponsavel, quantMoradores, numCond))){
+							menu.mensagemTerminal(false, "Inserção efetuada com sucesso...");
 
 						} else {
-							format.mensagemTerminal(false, "Inserção efetuada com sucesso...");
+							menu.mensagemTerminal(false, "Inserção efetuada com sucesso...");
 							
 						}
 					} else {
 						menu.linha();
-						format.mensagemTerminal(true, "Problema inesperado, retornando ao menu principal.");
+						menu.mensagemTerminal(true, "Problema inesperado, retornando ao menu principal.");
 
 					}
 					
@@ -187,8 +185,46 @@ public class Main {
 					isMenuPrincipal = false;
 					
 				} else {
+					boolean removeu;
 					menu.titulo("Remover - Árvore " + nomeArv);
 					
+					if (arvCond.eVazia() && arvMorador.eVazia()){
+						menu.mensagemTerminal(true, nomeArv);
+						System.out.println("Arvore está vazia");
+
+						menu.delay(3);
+
+						break;
+
+					} else if (isArvCondominio || isArvMorador) {
+
+						System.out.print(" | Número de Identificação (ID): ");
+						id = entrada.nextInt();
+
+						if (isArvCondominio) {
+							removeu = arvCond.remover(id);
+							
+						} else {
+							removeu = arvMorador.remover(id);
+
+						}
+
+						menu.linha();
+
+						if (removeu){
+							menu.mensagemTerminal(false, "Remoção efetuada com sucesso...");
+
+						}else{
+							menu.mensagemTerminal(true, "Remoção não efetuada, valor não encontrado...");
+
+						}
+
+					} else {
+						menu.mensagemTerminal(true, "Erro inexperado, retornando ao menu principal.");
+
+					}
+
+					menu.delay(5);
 				}
 				
 				break;
@@ -207,11 +243,14 @@ public class Main {
 			case 4:
 				// Exibir Árvore
 				if (isMenuPrincipal) {
-					format.mensagemTerminal(true, "Número informado fora das escolhas esperadas pelo sistema.");
+					menu.mensagemTerminal(true, "Número informado fora das escolhas esperadas pelo sistema.");
 					
 				} else {
 					if (arvCond.eVazia() && arvMorador.eVazia()) {
-						format.mensagemTerminal(true, "A árvore está vazia");
+						menu.mensagemTerminal(true, "A árvore está vazia");
+
+						menu.delay(3);
+
 						break;
 
 					} else if (isArvCondominio) {
@@ -231,9 +270,10 @@ public class Main {
 					maisDetalhes = entrada.next().toUpperCase().charAt(0);
 					strMaisDetalhes = Character.toString(maisDetalhes).toUpperCase();
 					
-					format.limparTerminal();
 					
 					if (strMaisDetalhes.equals("S")) {
+						format.limparTerminal();
+
 						if (isArvCondominio) {
 							menu.exibirDetalhesArvore(arvCond, vetorItemCond);
 							
@@ -247,7 +287,7 @@ public class Main {
 				break;
 
 			default:
-				format.mensagemTerminal(true, "Número informado fora das escolhas esperadas pelo sistema.");
+				menu.mensagemTerminal(true, "Número informado fora das escolhas esperadas pelo sistema.");
 			
 			}
 
@@ -255,7 +295,7 @@ public class Main {
 		
 		} while (true);
 
-		format.mensagemTerminal(false, "Finalizando o Programa...");
+		menu.mensagemTerminal(false, "Finalizando o Programa...");
 
 		entrada.close();
 		System.exit(0);
