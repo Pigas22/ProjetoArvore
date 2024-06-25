@@ -3,20 +3,20 @@ package arvores;
 
 import dados.ItemMorador;
 
-public class NoArvMoradores {
+public class NoArvMorador {
 	private ItemMorador info; // o tipo ItemMoradores está declarado no capítulo 1
-	private NoArvMoradores esq, dir;
-	public NoArvMoradores(ItemMorador elem){
+	private NoArvMorador esq, dir;
+	public NoArvMorador(ItemMorador elem){
 		this.info = elem;
 		this.esq = null;
 		this.dir = null;
 	}
 	
-	public NoArvMoradores getEsq(){
+	public NoArvMorador getEsq(){
 		return this.esq;
 	}
 	
-	public NoArvMoradores getDir(){
+	public NoArvMorador getDir(){
 		return this.dir;
 	}
 	
@@ -24,11 +24,11 @@ public class NoArvMoradores {
 		return this.info;
 	}
 	
-	public void setEsq(NoArvMoradores no){
+	public void setEsq(NoArvMorador no){
 		this.esq = no;
 	}
 	
-	public void setDir(NoArvMoradores no){
+	public void setDir(NoArvMorador no){
 		this.dir = no;
 	}
 	

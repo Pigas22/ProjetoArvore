@@ -8,7 +8,7 @@ import dados.ItemCondominio;
 import dados.ItemMorador;
 
 public class Formatacao {
-	private int numEspacamentoUni = 12;
+	private int numEspacamentoUni = 14;
 	private String caracteres = "-="; // Mantenha 2 Caracteres
 	
 	

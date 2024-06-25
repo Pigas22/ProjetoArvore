@@ -25,7 +25,7 @@ public class ItemCondominio {
 	
 	
 	// Construtor com Endereco
-	public ItemCondominio(int idCond, String nomeCond, String adm, String endereco, int quantAP) {
+	public ItemCondominio(int idCond, String nomeCond, String adm, int quantAP, String endereco) {
 		this.idCond = idCond;
 		this.nomeCond = nomeCond;
 		

@@ -15,6 +15,14 @@ public class ArvoreCondominio {
 		this.raiz = null;
 	}
 	
+	public void inserirDadosPadroes() {
+		this.inserir(new ItemCondominio(1, "Cond 1",  "Thiago",	 10));
+		this.inserir(new ItemCondominio(2, "Cond 2",  "Diogo", 	 40, "rua 1"));
+		this.inserir(new ItemCondominio(3, "Cond 3",  "Diogo",   15, "rua 2"));
+		this.inserir(new ItemCondominio(4, "Cond 4", "Vinicius", 30, "rua 3"));
+		this.inserir(new ItemCondominio(5, "Cond 5",  "Thiago",  10));
+	}
+	
 	public String getNOME() {
 		return this.NOME;
 	}
@@ -63,6 +71,16 @@ public class ArvoreCondominio {
 			return true;
 		}else{
 			return false;
+		}
+	}
+	
+	public ItemCondominio pesquisarComRetorno (int idCond){
+		NoArvCondominio no = pesquisar (idCond, this.raiz);
+		
+		if (no != null){
+			return no.getInfo();
+		}else{
+			return null;
 		}
 	}
 	

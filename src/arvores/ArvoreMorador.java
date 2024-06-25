@@ -3,7 +3,7 @@ package arvores;
 import dados.ItemMorador;
 
 public class ArvoreMorador {
-	private NoArvMoradores raiz;
+	private NoArvMorador raiz;
 	private int quantNos;//opcional
 	
 	private final String NOME = "Morador";
@@ -14,6 +14,38 @@ public class ArvoreMorador {
 		this.raiz = null;
 	}
 	
+	public void inserirDadosPadroes() {
+		// Condominio 1
+		this.inserir(new ItemMorador(1, "Thiago", 3, 1));
+		this.inserir(new ItemMorador(2, "Thiago", 3, 1));
+		this.inserir(new ItemMorador(3, "Thiago", 3, 1));
+		this.inserir(new ItemMorador(4, "Thiago", 3, 1));
+		this.inserir(new ItemMorador(5, "Thiago", 3, 1));
+		this.inserir(new ItemMorador(6, "Thiago", 3, 1));
+		this.inserir(new ItemMorador(7, "Thiago", 3, 1));
+		this.inserir(new ItemMorador(8, "Thiago", 3, 1));
+		
+		// Condominio 3
+		this.inserir(new ItemMorador(9,  "Diogo", 3, 3));
+		this.inserir(new ItemMorador(10, "Diogo", 3, 3));
+		this.inserir(new ItemMorador(11, "Diogo", 3, 3));
+		this.inserir(new ItemMorador(12, "Diogo", 3, 3));
+		this.inserir(new ItemMorador(13, "Diogo", 3, 3));
+		this.inserir(new ItemMorador(14, "Diogo", 3, 3));
+		this.inserir(new ItemMorador(15, "Diogo", 3, 3));
+		this.inserir(new ItemMorador(16, "Diogo", 3, 3));
+		
+		// Condominio 4
+		this.inserir(new ItemMorador(17, "Vinicius", 3, 4));
+		this.inserir(new ItemMorador(18, "Vinicius", 3, 4));
+		this.inserir(new ItemMorador(19, "Vinicius", 3, 4));
+		this.inserir(new ItemMorador(20, "Vinicius", 3, 4));
+		this.inserir(new ItemMorador(21, "Vinicius", 3, 4));
+		this.inserir(new ItemMorador(22, "Vinicius", 3, 4));
+		this.inserir(new ItemMorador(23, "Vinicius", 3, 4));
+		this.inserir(new ItemMorador(24, "Vinicius", 3, 4));
+	}
+	
 	public String getNOME() {
 		return this.NOME;
 	}
@@ -22,7 +54,7 @@ public class ArvoreMorador {
 		return (this.raiz == null);
 	}
 	
-	public NoArvMoradores getRaiz(){
+	public NoArvMorador getRaiz(){
 		return this.raiz;
 	}
 	
@@ -41,9 +73,9 @@ public class ArvoreMorador {
 		}
 	}
 	
-	public NoArvMoradores inserir (ItemMorador elem, NoArvMoradores no){
+	public NoArvMorador inserir (ItemMorador elem, NoArvMorador no){
 		if (no == null){
-			NoArvMoradores novo = new NoArvMoradores(elem);
+			NoArvMorador novo = new NoArvMorador(elem);
 			return novo;
 		}else {
 			if (elem.getIdMorador() < no.getInfo().getIdMorador()){
@@ -65,7 +97,17 @@ public class ArvoreMorador {
 		}
 	}
 	
-	private NoArvMoradores pesquisar (int idMorador, NoArvMoradores no){
+	public ItemMorador pesquisarComRetorno (int idMorador){
+		NoArvMorador no = pesquisar (idMorador, this.raiz);
+		
+		if (no != null){
+			return no.getInfo();
+		}else{
+			return null;
+		}
+	}
+	
+	private NoArvMorador pesquisar (int idMorador, NoArvMorador no){
 		if (no != null){
 			if (idMorador < no.getInfo().getIdMorador()){
 				no = pesquisar (idMorador, no.getEsq());
@@ -91,7 +133,7 @@ public class ArvoreMorador {
 		}
 	}
 	
-	public NoArvMoradores remover (int idMorador, NoArvMoradores arv){
+	public NoArvMorador remover (int idMorador, NoArvMorador arv){
 		if (idMorador < arv.getInfo().getIdMorador()){
 			arv.setEsq(remover (idMorador, arv.getEsq()));
 		}else{
@@ -112,7 +154,7 @@ public class ArvoreMorador {
 		return arv;
 	}
 	
-	private NoArvMoradores Arrumar (NoArvMoradores arv, NoArvMoradores maior){
+	private NoArvMorador Arrumar (NoArvMorador arv, NoArvMorador maior){
 		if (maior.getDir() != null){
 			maior.setDir(Arrumar (arv, maior.getDir()));
 		}
@@ -130,7 +172,7 @@ public class ArvoreMorador {
 		ItemMorador [] vet = new ItemMorador[this.quantNos];
 		return (FazCamCentral (this.raiz, vet, n));
 	}
-	private ItemMorador [] FazCamCentral (NoArvMoradores arv, ItemMorador [] vet, int []n){
+	private ItemMorador [] FazCamCentral (NoArvMorador arv, ItemMorador [] vet, int []n){
 		if (arv != null) {
 			vet = FazCamCentral (arv.getEsq(),vet,n);
 			vet[n[0]] = arv.getInfo();
@@ -147,7 +189,7 @@ public class ArvoreMorador {
 		ItemMorador [] vet = new ItemMorador[this.quantNos];
 		return (FazCamPreFixado (this.raiz, vet, n));
 	}
-	private ItemMorador [] FazCamPreFixado (NoArvMoradores arv, ItemMorador [] vet, int []n){
+	private ItemMorador [] FazCamPreFixado (NoArvMorador arv, ItemMorador [] vet, int []n){
 		if (arv != null) {
 			vet[n[0]] = arv.getInfo();
 			n[0]++;
@@ -165,7 +207,7 @@ public class ArvoreMorador {
 		return (FazCamPosFixado (this.raiz, vet, n));
 	}
 	
-	private ItemMorador [] FazCamPosFixado (NoArvMoradores arv, ItemMorador[] vet, int []n){
+	private ItemMorador [] FazCamPosFixado (NoArvMorador arv, ItemMorador[] vet, int []n){
 		if (arv != null) {
 			vet = FazCamPosFixado (arv.getEsq(), vet,n);
 			vet = FazCamPosFixado (arv.getDir(), vet,n);

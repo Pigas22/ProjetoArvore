@@ -59,6 +59,37 @@ public class Menu {
 	}
 	
 	
+	public boolean menuInicial() throws IOException, InterruptedException {
+		char carregar;
+		String strCarregar;
+		
+		while (true) {
+			titulo("Configurações");
+			System.out.print("| Deseja carregar os dados Padrões das Árvores? [S/N] ");
+			
+			carregar = entrada.next().toUpperCase().charAt(0);
+			strCarregar = Character.toString(carregar).toUpperCase();
+			
+			if (strCarregar.equals("S") || strCarregar.equals("N")) {
+				break;
+				
+			} else {
+				mensagemTerminal(true, "Resposta inesperada, por favor tente novamente...");
+				delay(2);
+				
+				format.limparTerminal();
+			}	
+		}
+	
+		if (strCarregar.equals("S")) {
+			return true;
+			
+		} else {
+			return false;
+			
+		}
+	}
+	
 
 	public void menuPrincipal () {
 		titulo("Menu Principal");
@@ -78,11 +109,39 @@ public class Menu {
 		System.out.println("[ 0 ] - Voltar"
 				+ "\n[ 1 ] - Inserir"
 				+ "\n[ 2 ] - Remover"
-				+ "\n[ 3 ] - Pesquisar"
-				+ "\n[ 4 ] - Exibir Árvore");
+				+ "\n[ 3 ] - Alterar"
+				+ "\n[ 4 ] - Pesquisar"
+				+ "\n[ 5 ] - Exibir Árvore");
 
 		linha();
 	}	
+	
+	
+	public void menuAlterar(String nomeArv) {
+		titulo("Alterar - Árvore " + nomeArv);
+		
+		System.out.println("[ 0 ] - Voltar");
+		
+		if (nomeArv.equals("Condomínio")) {
+			System.out.println("[ 1 ] - Nome do Condomínio"
+					+ "\n[ 2 ] - Administrador"
+					+ "\n[ 3 ] - Endereço"
+					+ "\n[ 4 ] - Quantidade de Apartamentos");
+			
+		} else {
+			System.out.println("[ 1 ] - Nome do Responsável"
+					+ "\n[ 2 ] - Quantidade de Moradores"
+					+ "\n[ 3 ] - Número do Condomínio"
+					+ "\n[ 4 ] - Disponibilidade");
+			
+		}
+
+		linha();
+	}
+	
+	public void menuPesquisar() {
+		
+	}
 
 	
 	public void exibirArvore(ArvoreCondominio arvCond, ItemCondominio[] vetorItemCond) {
@@ -130,17 +189,21 @@ public class Menu {
 	
 
 	public void mensagemTerminal(boolean isError, String msg) {
-    	if (isError) {
-    		System.out.println("[ERRO] - " + msg);
+		linha();
+    	
+		if (isError) {
+    		format.centralizar("[ERRO] - " + msg);
     		
     	} else {
-    		System.out.println("[INFO] - " + msg);
+    		format.centralizar("[INFO] - " + msg);
     		
     	}    	
+    	
+    	linha();
     }
 
 
-	public void creditos () {
+	public void creditos () throws IOException, InterruptedException {
 		char abrirNav;
 		String strAbrirNav;
 		
@@ -150,7 +213,7 @@ public class Menu {
 		format.centralizar("Thiago Holz Coutinho");
 		format.centralizar("Vinicius Rocha Aleixo");
 		
-		System.out.println("\n©️ Copyright TVD 2024"
+		System.out.println("\n© Copyright TVD 2024"
 				+ "\n"
 				+ "\nLink do GitHub do Projeto:");
 		format.centralizar("- https://github.com/Pigas22/ProjetoArvore/");
@@ -161,11 +224,26 @@ public class Menu {
 		strAbrirNav = Character.toString(abrirNav).toUpperCase();
 
 
-		if (strAbrirNav.equals("S")) {
-			abrirNavegador();
+		if (strAbrirNav.equals("S") || strAbrirNav.equals("N")) {
+			if (strAbrirNav.equals("S")) {
+				abrirNavegador();
+			
+			} else {
+				mensagemTerminal(false, "Retornando ao Menu Principal, aguarde...");
+				
+			}
+		
+		} else {
+			format.limparTerminal();
+
+			mensagemTerminal(true, "Resposta inesperada, por favor tente novamente...");
+			
+			format.limparTerminal();
+			creditos();
+			
 		}
 
-		delay(1);
+		delay(3);
 	}
 
 
