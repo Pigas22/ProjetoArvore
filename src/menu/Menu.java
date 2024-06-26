@@ -139,8 +139,24 @@ public class Menu {
 		linha();
 	}
 	
-	public void menuPesquisar() {
+	
+	public void menuPesquisar(String nomeArv) {
+		titulo("Alterar - Árvore " + nomeArv);
 		
+		System.out.println("[ 0 ] - Voltar");
+		
+		if (nomeArv.equals("Condomínio")) {
+			System.out.println("[ 1 ] - Blocos por Condomínio"
+					+ "\n[ 2 ] - Condomínios X Administrador");
+			
+		} else {
+			System.out.println("[ 1 ] - Apartamentos Vagos"
+					+ "\n[ 2 ] - Quantidade de Moradores");
+			
+		}
+
+		linha();
+
 	}
 
 	
@@ -148,9 +164,17 @@ public class Menu {
 		String msg = format.dadosArvore(arvCond, vetorItemCond);
 		
 		titulo("Exibir Árvore - Árvore " + arvCond.getNOME());
-		System.out.println("| Exibir a árvore: "
-				+ "\n" + format.centralizarTabela("[ID]") + " - [Nome]"
-				+ msg);
+		System.out.println(format.centralizarItem("[ID]", 6) 
+				+ " - " 
+				+ format.centralizarItem("[Condomínio]", 14)
+				+ " | "
+				+ format.centralizarItem("[ID]", 6) 
+				+ " - " 
+				+ format.centralizarItem("[Condomínio]", 14));
+				
+		linha();
+				
+				System.out.println(msg);
 		
 		linha();
 	}
@@ -160,9 +184,17 @@ public class Menu {
 		String msg = format.dadosArvore(arvMorador, vetorItemMorador);
 		
 		titulo("Exibir Árvore - Árvore " + arvMorador.getNOME());
-		System.out.println("| Exibir a árvore: "
-				+ "\n" + format.centralizarTabela("[ID]") + " - [Nome]"
-				+ msg);
+		System.out.println(format.centralizarItem("[ID]", 6) 
+				+ " - " 
+				+ format.centralizarItem("[Responsável]", 14)
+				+ " | "
+				+ format.centralizarItem("[ID]", 6) 
+				+ " - " 
+				+ format.centralizarItem("[Responsável]", 14));
+				
+		linha();
+				
+				System.out.println(msg);
 		
 		linha();
 	}
@@ -185,6 +217,21 @@ public class Menu {
 				+ "\n" + msgDetalhada);
 		
 		linha();
+	}
+	
+	
+	public String exibirPesqAPsVagos(ArvoreMorador arvMorador, ItemMorador[] vetorItemMorador) {
+		String msgDetalhada = " [ID]  | [Responsável]  | [ID Condomínio]";
+		msgDetalhada += format.tabelaAPsVagos(arvMorador, vetorItemMorador);
+		
+		return msgDetalhada;
+	}
+	
+	public String exibirPesqQuantMoradores(ArvoreMorador arvMorador, ItemMorador[] vetorItemMorador) {
+		String msgDetalhada = " [ID Condomínio]  | [Quantidade Moradores]";
+		msgDetalhada += format.tabelaQuantMoradores(arvMorador, vetorItemMorador);
+		
+		return msgDetalhada;
 	}
 	
 

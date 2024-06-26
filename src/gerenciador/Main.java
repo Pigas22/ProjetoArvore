@@ -32,8 +32,8 @@ public class Main {
 
 		int idAlterar = 0;
 		
-		ItemCondominio[] vetorItemCond = new ItemCondominio[5]; 
-		ItemMorador[] vetorItemMorador = new ItemMorador[30];
+		ItemCondominio[] vetorItemCond; 
+		ItemMorador[] vetorItemMorador;
 
 		boolean isMenuPrincipal = true;
 		
@@ -54,11 +54,18 @@ public class Main {
 			arvMorador.inserirDadosPadroes();
 			
 			menu.mensagemTerminal(false, "Dados Carregados com sucesso.");
+		
+			vetorItemCond = new ItemCondominio[arvCond.getQuantNos()]; 
+			vetorItemMorador = new ItemMorador[arvMorador.getQuantNos()];
 			
 		} else {
 			menu.mensagemTerminal(false, "Ávores inicializadas vazias.");
 			
+			vetorItemCond = new ItemCondominio[1]; 
+			vetorItemMorador = new ItemMorador[1];
+			
 		}
+		
 			
 		menu.delay(2);
 		
@@ -71,6 +78,9 @@ public class Main {
 
 			} else if (isMenuAlterar) {
 				menu.menuAlterar(nomeArv);
+				
+			} else if (isMenuPesquisa) {
+				menu.menuPesquisar(nomeArv);
 				
 			} else {
 				menu.menuArvore(nomeArv);
@@ -101,16 +111,14 @@ public class Main {
 					break;
 
 				}
-			} else {
-				if (isArvCondominio) {
-					nomeArv = arvCond.getNOME();
+			} else if (isArvCondominio) {
+				nomeArv = arvCond.getNOME();
 
-				} else if (isArvMorador) {
-					nomeArv = arvMorador.getNOME();
-					
-				}
+			} else if (isArvMorador) {
+				nomeArv = arvMorador.getNOME();
+				
 			}
-
+			
 
 			switch (escolhaInt) {
 			case 0: 
@@ -119,27 +127,63 @@ public class Main {
 				if (isMenuAlterar) {
 					isMenuAlterar = false;
 					
+				} else if (isMenuPesquisa) {
+					isMenuPesquisa = false;
+					
 				} else if (!isMenuPrincipal) {
 					isMenuPrincipal = true;
 					isArvCondominio = false;
 					isArvMorador = false;
 					
 				}
+				
+				menu.delay(1);
+				
 				break;
 
 				
 			case 1:
-				// Árvore Condomínios, MneuAlterar (Nome do condominio ou responsavel) e Inserir
 				if (isMenuPrincipal) {
+					// Árvore Condomínios
 					isArvCondominio = true;
 					isMenuPrincipal = false;
 					isArvMorador = false;
 
+				} else if (isMenuPesquisa) {
+					// MenuPesquisar - Arv Condominio e Morador 
+					
+					if (isArvCondominio) {
+						
+						
+					} else if (isArvMorador) {
+						// Arv Morador (Apartamentos Vagos) 
+						vetorItemMorador = arvMorador.CamCentralPersonalizado(true);
+						
+						if (vetorItemMorador.length > 0) {
+							menu.titulo("Apartamentos Vagos");
+							
+							format.centralizar(menu.exibirPesqAPsVagos(arvMorador, vetorItemMorador));
+							
+							menu.linha();
+							
+						} else {
+							menu.mensagemTerminal(true, "Nenhum Apartamento Vago Encontrado.");
+							
+						}
+						
+						menu.delay(3);
+						
+					}
+					
+					
 				} else if (isMenuAlterar) {
+					// MenuAlterar (Nome do condominio ou responsavel)
 					String novoNome;
 					
+					menu.titulo("Alterar - Árvore " + nomeArv);
 					
 					System.out.print(" | Novo nome: ");
+					entrada.nextLine();
 					novoNome = entrada.nextLine().strip();
 					
 					
@@ -158,6 +202,7 @@ public class Main {
 					menu.mensagemTerminal(false, "Nome alterado com sucesso.");
 					
 				} else {
+					//Inserir
 					menu.titulo("Inserir - Árvore " + nomeArv);
 					
 					if (isArvCondominio) {
@@ -230,19 +275,47 @@ public class Main {
 
 				
 			case 2:
-				// Árvore Moradores, MenuAlterar (Nome do Administrador ou Qtd de Moradores) e Remover
 				if (isMenuPrincipal) {
+					// Árvore Moradores
 					isArvMorador = true;
 					isArvCondominio = false;
 					isMenuPrincipal = false;
 					
+				} else if (isMenuPesquisa) {
+					// MenuPesquisar - Arv Condominio e Morador 
+					
+					if (isArvCondominio) {
+						
+						
+					} else if (isArvMorador) {
+						// Arv Morador (Quantidade de Moradores) 
+						vetorItemMorador = arvMorador.CamCentral();
+						
+						if (vetorItemMorador.length > 0) {
+							menu.titulo("Quantidade de Moradores - TOP 5");
+							
+							format.centralizar(menu.exibirPesqQuantMoradores(arvMorador, vetorItemMorador));
+							
+						} else {
+							menu.mensagemTerminal(true, "A árvore está vazia");
+							
+						}
+						
+						menu.delay(3);
+						
+					}
+					
+					
 				} else if (isMenuAlterar) {
+					// MenuAlterar (Nome do Administrador ou Qtd de Moradores)
 					String msg = "";
+					menu.titulo("Alterar - Árvore " + nomeArv);
 					
 					if (isArvCondominio) {
 						String novoAdm;
 						
 						System.out.print(" | Novo Administrador: ");
+						entrada.nextLine();
 						novoAdm = entrada.nextLine().strip();
 						
 						ItemCondominio dado = arvCond.pesquisarComRetorno(idAlterar);
@@ -265,6 +338,7 @@ public class Main {
 					menu.mensagemTerminal(false, msg + " alterado com sucesso.");
 					
 				} else {
+					// Remover
 					boolean removeu;
 					menu.titulo("Remover - Árvore " + nomeArv);
 					
@@ -308,17 +382,25 @@ public class Main {
 
 				
 			case 3:
-				// Créditos, MenuAlterar (Endereco e Número do Condominio) Alterar
-				if (isMenuPrincipal) {
+				if (isMenuPesquisa) {
+					menu.mensagemTerminal(true, "Número informado fora das escolhas esperadas pelo sistema.");
+					menu.delay(2);
+					
+				} else if (isMenuPrincipal) {
+					// Créditos
 					menu.creditos();
 
 				} else if (isMenuAlterar) {
+					// MenuAlterar (Endereco e Número do Condominio) 
 					String msg = "";
+					
+					menu.titulo("Alterar - Árvore " + nomeArv);
 					
 					if (isArvCondominio) {
 						String novoEndereco;
 						
 						System.out.print(" | Novo Endereço: ");
+						entrada.nextLine();
 						novoEndereco = entrada.nextLine().strip();
 						
 						ItemCondominio dado = arvCond.pesquisarComRetorno(idAlterar);
@@ -341,6 +423,7 @@ public class Main {
 					menu.mensagemTerminal(false, msg + " alterado com sucesso");
 					
 				} else if (isArvCondominio || isArvMorador) {
+					// Alterar
 					
 					if (arvCond.eVazia() && arvMorador.eVazia()) {
 						menu.mensagemTerminal(true, "A árvore está vazia");
@@ -351,15 +434,18 @@ public class Main {
 					}
 					
 					isMenuAlterar = true;
-					menu.menuAlterar(nomeArv);
-					
 					boolean encontrou = false;
 					
-					menu.titulo("Inserir - Árvore " + nomeArv);
-
+					menu.titulo("Alterar - Árvore " + nomeArv);
 					System.out.print(" | Número de Identificação do Item à ser alterado: ");
 					id = entrada.nextInt();
 					
+					menu.linha();
+					menu.delay(1);
+					
+					format.limparTerminal();
+					
+					menu.menuAlterar(nomeArv);
 					
 					if (isArvCondominio) {
 						encontrou = arvCond.pesquisar(id);
@@ -385,17 +471,20 @@ public class Main {
 				
 				
 			case 4: 
-				// MenuAlterar (Quantidade de AP's e Disponibilidade) e Pesquisar
-				if (isMenuPrincipal) {
+				if (isMenuPrincipal || isMenuPesquisa) {
 					menu.mensagemTerminal(true, "Número informado fora das escolhas esperadas pelo sistema.");
+					menu.delay(2);
 					
 				} else if (isMenuAlterar) {
+					// MenuAlterar (Quantidade de AP's e Disponibilidade) 
 					String msg = "";
+					
+					menu.titulo("Alterar - Árvore " + nomeArv);
 					
 					if (isArvCondominio) {
 						int novaQtd;
 						
-						System.out.print(" | Novo Administrador: ");
+						System.out.print(" | Nova Quantidade de Apartamentos: ");
 						novaQtd = entrada.nextInt();
 						
 						ItemCondominio dado = arvCond.pesquisarComRetorno(idAlterar);
@@ -406,7 +495,7 @@ public class Main {
 					} else if (isArvMorador) {
 						boolean novaDisponibilidade;
 						
-						System.out.print(" | Novo número de Indentificação: ");
+						System.out.print(" | Disponibilidade Atual: ");
 						novaDisponibilidade = entrada.nextBoolean();
 						
 						ItemMorador dado = arvMorador.pesquisarComRetorno(idAlterar);
@@ -418,7 +507,8 @@ public class Main {
 					menu.mensagemTerminal(false, msg + " alterada com sucesso.");
 					
 				} else {
-					menu.titulo("Pesquisar - Árvore " + nomeArv);
+					// Pesquisar
+					isMenuPesquisa = true;
 					
 				}
 				break;
@@ -426,14 +516,15 @@ public class Main {
 
 			case 5:
 				// Exibir Árvore
-				if (isMenuPrincipal || isMenuAlterar) {
+				if (isMenuPrincipal || isMenuAlterar || isMenuPesquisa) {
 					menu.mensagemTerminal(true, "Número informado fora das escolhas esperadas pelo sistema.");
-					
+					menu.delay(2);
+
 				} else {
 					if (arvCond.eVazia() && arvMorador.eVazia()) {
 						menu.mensagemTerminal(true, "A árvore está vazia");
 
-						menu.delay(3);
+						menu.delay(2);
 
 						break;
 
@@ -447,8 +538,6 @@ public class Main {
 						
 						menu.exibirArvore(arvMorador, vetorItemMorador);
 					}
-
-					menu.delay(2);
 					
 					System.out.print("Exibir mais detalhes? [S/N] ");
 					maisDetalhes = entrada.next().toUpperCase().charAt(0);
@@ -465,8 +554,12 @@ public class Main {
 							menu.exibirDetalhesArvore(arvMorador, vetorItemMorador);
 							
 						}
+						menu.delay(8);
+						
+					} else {
+						menu.delay(2);
+
 					}
-					menu.delay(8);
 				}
 				break;
 				
@@ -479,7 +572,15 @@ public class Main {
 				menu.delay(2);
 			
 			}
-
+			
+			if ((isArvCondominio || isArvMorador)
+					&& (escolhaInt == 1 || escolhaInt == 2) ) {
+				vetorItemCond = new ItemCondominio[arvCond.getQuantNos()]; 
+				vetorItemMorador = new ItemMorador[arvMorador.getQuantNos()];
+				
+			}
+			
+			
 			format.limparTerminal();
 		
 		} while (true);

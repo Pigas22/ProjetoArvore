@@ -28,7 +28,7 @@ public class Formatacao {
 		System.out.println(strEspacamento + " " +  texto);
 	}
 	
-	public String centralizarTabela (String texto) {
+	public String centralizarItem (String texto) {
 		String strEspacamento = "";
 		int tamanhoEspacamento = this.numEspacamentoUni - texto.length(); // Dobra do Tamanho do Espacamento
 		
@@ -37,6 +37,28 @@ public class Formatacao {
 		}
 		
 		return strEspacamento + texto;
+	}
+	
+	
+	public String centralizarItem (String texto, int tamanho) {
+		String strEspacamento = "";
+		int tamanhoEspacamento;
+		
+		if (texto.length() % 2 == 0) {
+			tamanhoEspacamento = (tamanho - texto.length()) / 2;
+			
+		} else {
+			texto+= " ";
+			tamanhoEspacamento = (tamanho - texto.length()) / 2;
+			
+		}
+		
+		
+		for (int i = 0; i < tamanhoEspacamento; i++) {
+			strEspacamento += " ";			
+		}
+		
+		return strEspacamento + texto + strEspacamento;
 	}
 	
 	
@@ -56,9 +78,15 @@ public class Formatacao {
 		String msg = "";
 
 		for (int i = 0; i < arvCond.getQuantNos(); i++){
-			msg+= "\n" + centralizarTabela(vetorItemCond[i].getStrID())
-										+ " - " + vetorItemCond[i].getNomeCond() + ";";
-
+			if (i % 2 == 0 && i != 0) {
+				msg += "\n";
+			}
+						
+			msg+= centralizarItem(vetorItemCond[i].getStrID(), 6) 
+					+ " - " 
+					+ centralizarItem(vetorItemCond[i].getNomeCond(), 14)
+					+ " | ";
+			
 		}
 		return msg;
 	}
@@ -69,8 +97,14 @@ public class Formatacao {
 		String msg = "";
 		
 		for (int i = 0; i < arvMorador.getQuantNos(); i++){
-			msg+= "\n" + centralizarTabela(vetorItemMorador[i].getStrID()) 
-										+ " - " + vetorItemMorador[i].getNomeResonsavel() + ";";
+			if (i % 2 == 0 && i != 0) {
+				msg += "\n";
+			}
+						
+			msg+= centralizarItem(vetorItemMorador[i].getStrID(), 6) 
+					+ " - " 
+					+ centralizarItem(vetorItemMorador[i].getNomeResonsavel(), 14)
+					+ " | ";
 		
 		}
 		return msg;
@@ -89,12 +123,77 @@ public class Formatacao {
 	}
 
 	
-	public String detalhaDadosArvore (ArvoreMorador arvMorador, ItemMorador[] vetorItemMorador) {
+	public String detalhaDadosArvore(ArvoreMorador arvMorador, ItemMorador[] vetorItemMorador) {
 		String msgDetalhada = "";
 		
 		for (int i = 0; i < arvMorador.getQuantNos(); i++){
 			msgDetalhada += "\n" + vetorItemMorador[i].toString() + ";\n";
 			
+		}
+		
+		return msgDetalhada;
+	}
+	
+	
+	public String tabelaAPsVagos(ArvoreMorador arvMorador, ItemMorador[] vetorItemMorador) {
+		String msgDetalhada = "";
+		
+		for (int i = 0; i < arvMorador.getQuantNos(); i++){
+			if (vetorItemMorador[i] == null) {
+				continue;
+			}
+			
+			msgDetalhada += "\n " + centralizarItem(vetorItemMorador[i].getStrID(), 6) 
+					+ " | " + centralizarItem(vetorItemMorador[i].getNomeResonsavel(), 14) 
+					+ " | " + centralizarItem(Integer.toString(vetorItemMorador[i].getNumCond()), 6);
+			
+		}
+		
+		return msgDetalhada;
+	}
+	
+	
+	public String tabelaQuantMoradores(ArvoreMorador arvMorador, ItemMorador[] vetorItemMorador) {
+		String msgDetalhada = "";
+		int[] somaQuantMoradores = new int[5];
+		int[] vetorCondID = new int[5];
+		
+		for (int i = 0; i < arvMorador.getQuantNos(); i++){
+			if (vetorItemMorador[i] == null) {
+				continue;
+				
+			}
+			
+			if (i == 0) {
+				vetorCondID[i] = vetorItemMorador[i].getNumCond();
+				somaQuantMoradores[i] += vetorItemMorador[i].getQuantMoradores();
+				continue;
+			} 
+
+			for (int c = 0; c < vetorCondID.length; c++) {
+				if (vetorItemMorador[i].getNumCond() == vetorCondID[c]) {
+					somaQuantMoradores[c] += vetorItemMorador[i].getQuantMoradores();
+					break;
+					
+				} else if (vetorCondID[c] == 0) {
+					vetorCondID[c] = vetorItemMorador[i].getNumCond();
+					break;
+					
+				} else {
+					continue;
+					
+				}
+			}
+			
+		}
+		
+		for (int f = 0; f < vetorCondID.length; f++) {
+			if (vetorCondID[f] != 0) {
+				msgDetalhada += "\n " 
+						+ centralizarItem("" + vetorCondID[f], 18) 
+						+ ": "
+						+ centralizarItem("" + somaQuantMoradores[f], 22);
+			}
 		}
 		
 		return msgDetalhada;

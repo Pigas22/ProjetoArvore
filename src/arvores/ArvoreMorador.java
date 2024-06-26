@@ -18,32 +18,32 @@ public class ArvoreMorador {
 		// Condominio 1
 		this.inserir(new ItemMorador(1, "Thiago", 3, 1));
 		this.inserir(new ItemMorador(2, "Thiago", 3, 1));
-		this.inserir(new ItemMorador(3, "Thiago", 3, 1));
+		this.inserir(new ItemMorador(3, "Thiago", 0, 1));
 		this.inserir(new ItemMorador(4, "Thiago", 3, 1));
-		this.inserir(new ItemMorador(5, "Thiago", 3, 1));
+		this.inserir(new ItemMorador(5, "Thiago", 0, 1));
 		this.inserir(new ItemMorador(6, "Thiago", 3, 1));
-		this.inserir(new ItemMorador(7, "Thiago", 3, 1));
-		this.inserir(new ItemMorador(8, "Thiago", 3, 1));
+		this.inserir(new ItemMorador(7, "Thiago", 4, 1));
+		this.inserir(new ItemMorador(8, "Thiago", 5, 1));
 		
 		// Condominio 3
-		this.inserir(new ItemMorador(9,  "Diogo", 3, 3));
-		this.inserir(new ItemMorador(10, "Diogo", 3, 3));
+		this.inserir(new ItemMorador(9,  "Diogo", 0, 3));
+		this.inserir(new ItemMorador(10, "Diogo", 0, 3));
 		this.inserir(new ItemMorador(11, "Diogo", 3, 3));
 		this.inserir(new ItemMorador(12, "Diogo", 3, 3));
-		this.inserir(new ItemMorador(13, "Diogo", 3, 3));
+		this.inserir(new ItemMorador(13, "Diogo", 0, 3));
 		this.inserir(new ItemMorador(14, "Diogo", 3, 3));
-		this.inserir(new ItemMorador(15, "Diogo", 3, 3));
-		this.inserir(new ItemMorador(16, "Diogo", 3, 3));
+		this.inserir(new ItemMorador(15, "Diogo", 5, 3));
+		this.inserir(new ItemMorador(16, "Diogo", 5, 3));
 		
 		// Condominio 4
-		this.inserir(new ItemMorador(17, "Vinicius", 3, 4));
+		this.inserir(new ItemMorador(17, "Vinicius", 0, 4));
 		this.inserir(new ItemMorador(18, "Vinicius", 3, 4));
-		this.inserir(new ItemMorador(19, "Vinicius", 3, 4));
+		this.inserir(new ItemMorador(19, "Vinicius", 0, 4));
 		this.inserir(new ItemMorador(20, "Vinicius", 3, 4));
-		this.inserir(new ItemMorador(21, "Vinicius", 3, 4));
-		this.inserir(new ItemMorador(22, "Vinicius", 3, 4));
-		this.inserir(new ItemMorador(23, "Vinicius", 3, 4));
-		this.inserir(new ItemMorador(24, "Vinicius", 3, 4));
+		this.inserir(new ItemMorador(21, "Vinicius", 4, 4));
+		this.inserir(new ItemMorador(22, "Vinicius", 4, 4));
+		this.inserir(new ItemMorador(23, "Vinicius", 4, 4));
+		this.inserir(new ItemMorador(24, "Vinicius", 5, 4));
 	}
 	
 	public String getNOME() {
@@ -181,6 +181,31 @@ public class ArvoreMorador {
 		}
 		return vet;
 	}
+	
+	
+	public ItemMorador [] CamCentralPersonalizado (boolean pesqApsVagos){
+		ItemMorador [] vet = new ItemMorador[this.quantNos];
+		int []n= new int[1];
+		n[0]=0;
+		
+		return (FazCamCentralPersonalizado (this.raiz, vet, n, pesqApsVagos));
+	}
+	private ItemMorador [] FazCamCentralPersonalizado (NoArvMorador arv, ItemMorador [] vet, int []n, boolean pesqApsVagos){
+		if (arv != null) {
+			vet = FazCamCentralPersonalizado (arv.getEsq(), vet, n, pesqApsVagos);
+			
+			if (pesqApsVagos && arv.getInfo().getIsVago()) {
+				vet[n[0]] = arv.getInfo();
+								
+			} 
+			
+			n[0]++;
+			vet = FazCamCentralPersonalizado (arv.getDir(), vet, n, pesqApsVagos);
+		}
+		
+		return vet;
+	}
+	
 	
 	//caminhamento pré-fixado
 	public ItemMorador [] CamPreFixado (){

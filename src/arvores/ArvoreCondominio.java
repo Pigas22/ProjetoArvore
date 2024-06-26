@@ -159,6 +159,23 @@ public class ArvoreCondominio {
 		return vet;
 	}
 	
+	//caminhamento central personalizado
+	public ItemCondominio [] CamCentralPersonalizado (boolean pesqBlocosCond){
+		int []n= new int[1];
+		n[0]=0;
+		ItemCondominio [] vet = new ItemCondominio[this.quantNos];
+		return (FazCamCentralPersonalizado (this.raiz, vet, n));
+	}
+	private ItemCondominio [] FazCamCentralPersonalizado (NoArvCondominio arv, ItemCondominio [] vet, int []n){
+		if (arv != null) {
+			vet = FazCamCentralPersonalizado (arv.getEsq(),vet,n);
+			vet[n[0]] = arv.getInfo();
+			n[0]++;
+			vet = FazCamCentralPersonalizado (arv.getDir(),vet,n);
+		}
+		return vet;
+	}
+	
 	//caminhamento pré-fixado
 	public ItemCondominio [] CamPreFixado (){
 		int []n= new int[1];
