@@ -11,9 +11,11 @@ public class ItemCondominio {
 	private int quantAP;
 	private String strID;
 	
+	private SituacaoCondominio situacaoCond;
+	
 
 	// Construtor sem Endereco
-	public ItemCondominio(int idCond, String nomeCond, String adm, int quantAP) {
+	public ItemCondominio(int idCond, String nomeCond, String adm, int quantAP, int situacao) {
 		this.idCond = idCond;
 		this.nomeCond = nomeCond;
 		
@@ -21,11 +23,32 @@ public class ItemCondominio {
 		this.quantAP = quantAP;
 		
 		this.strID = Integer.toString(this.getIdCond());
+		
+		switch (situacao) {
+			case 1:
+				this.situacaoCond = SituacaoCondominio.PLANTA;
+				break;
+			
+			case 2:
+				this.situacaoCond = SituacaoCondominio.VENDENDO;
+				break;
+				
+			case 3:
+				this.situacaoCond = SituacaoCondominio.CONSTRUIDA;
+				break;
+				
+			case 4:
+				this.situacaoCond = SituacaoCondominio.CONSTRUINDO;
+				break;
+				
+			default:
+				this.situacaoCond = SituacaoCondominio.SEM_CLASSIFICACAO;
+		}
 	}
 	
 	
 	// Construtor com Endereco
-	public ItemCondominio(int idCond, String nomeCond, String adm, int quantAP, String endereco) {
+	public ItemCondominio(int idCond, String nomeCond, String adm, int quantAP, int situacao, String endereco) {
 		this.idCond = idCond;
 		this.nomeCond = nomeCond;
 		
@@ -34,6 +57,27 @@ public class ItemCondominio {
 		
 		this.quantAP = quantAP;
 		this.strID = Integer.toString(this.getIdCond());
+		
+		switch (situacao) {
+			case 1:
+				this.situacaoCond = SituacaoCondominio.PLANTA;
+				break;
+			
+			case 2:
+				this.situacaoCond = SituacaoCondominio.VENDENDO;
+				break;
+				
+			case 3:
+				this.situacaoCond = SituacaoCondominio.CONSTRUIDA;
+				break;
+				
+			case 4:
+				this.situacaoCond = SituacaoCondominio.CONSTRUINDO;
+				break;
+				
+			default:
+				this.situacaoCond = SituacaoCondominio.SEM_CLASSIFICACAO;
+		}
 	}
 	
 	
@@ -45,6 +89,7 @@ public class ItemCondominio {
         		+ "\n		adm= " + adm + ";"
         		+ "\n		endereco= " + endereco + ";"
         		+ "\n		quantAP= " + quantAP + ";"
+        		+ "\n		situacaoCond= " + situacaoCond.toString() + ";"
         		+ "}";
 
     }
@@ -60,8 +105,35 @@ public class ItemCondominio {
 	}
 		
 	
+	public SituacaoCondominio getSituacaoCondominio() {
+		return this.situacaoCond;
+	}
+	public void setSituacaoCondominio (int situacao) {
+			switch (situacao) {
+			case 1:
+				this.situacaoCond = SituacaoCondominio.PLANTA;
+				break;
+			
+			case 2:
+				this.situacaoCond = SituacaoCondominio.VENDENDO;
+				break;
+				
+			case 3:
+				this.situacaoCond = SituacaoCondominio.CONSTRUIDA;
+				break;
+				
+			case 4:
+				this.situacaoCond = SituacaoCondominio.CONSTRUINDO;
+				break;
+				
+			default:
+				this.situacaoCond = SituacaoCondominio.SEM_CLASSIFICACAO;
+		}
+	}
+	
+	
 	public String getNomeCond() {
-		return nomeCond;
+		return this.nomeCond;
 	}
 	public void setNomeCond(String nomeCond) {
 		this.nomeCond = nomeCond;
