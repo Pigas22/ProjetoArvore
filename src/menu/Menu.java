@@ -146,7 +146,7 @@ public class Menu {
 		System.out.println("[ 0 ] - Voltar");
 		
 		if (nomeArv.equals("Condomínio")) {
-			System.out.println("[ 1 ] - Blocos por Condomínio"
+			System.out.println("[ 1 ] - Situações dos Condomínios"
 					+ "\n[ 2 ] - Condomínios X Administrador");
 			
 		} else {
@@ -230,6 +230,14 @@ public class Menu {
 	public String exibirPesqQuantMoradores(ArvoreMorador arvMorador, ItemMorador[] vetorItemMorador) {
 		String msgDetalhada = " [ID Condomínio]  | [Quantidade Moradores]";
 		msgDetalhada += format.tabelaQuantMoradores(arvMorador, vetorItemMorador);
+		
+		return msgDetalhada;
+	}
+	
+	
+	public String exibirPesqSituacaoCond (ArvoreCondominio arvCond, ItemCondominio[] vetorItemCond) {
+		String msgDetalhada = " [Planta]  | [À Venda] | [Edificado] | [Em Construção] | [Sem Classificação]";
+		msgDetalhada += format.tabelaSituacaoCond(arvCond, vetorItemCond);
 		
 		return msgDetalhada;
 	}

@@ -11,10 +11,21 @@ public class ItemCondominio {
 	private int quantAP;
 	private String strID;
 	
-	private SituacaoCondominio situacaoCond;
+	private EnumSituacaoCondominio situacaoCond = EnumSituacaoCondominio.SEM_CLASSIFICACAO;
 	
 
 	// Construtor sem Endereco
+	public ItemCondominio(int idCond, String nomeCond, String adm, int quantAP) {
+		this.idCond = idCond;
+		this.nomeCond = nomeCond;
+		
+		this.adm = adm;
+		this.quantAP = quantAP;
+		
+		this.strID = Integer.toString(this.getIdCond());
+	}
+	
+	
 	public ItemCondominio(int idCond, String nomeCond, String adm, int quantAP, int situacao) {
 		this.idCond = idCond;
 		this.nomeCond = nomeCond;
@@ -23,27 +34,7 @@ public class ItemCondominio {
 		this.quantAP = quantAP;
 		
 		this.strID = Integer.toString(this.getIdCond());
-		
-		switch (situacao) {
-			case 1:
-				this.situacaoCond = SituacaoCondominio.PLANTA;
-				break;
-			
-			case 2:
-				this.situacaoCond = SituacaoCondominio.VENDENDO;
-				break;
-				
-			case 3:
-				this.situacaoCond = SituacaoCondominio.CONSTRUIDA;
-				break;
-				
-			case 4:
-				this.situacaoCond = SituacaoCondominio.CONSTRUINDO;
-				break;
-				
-			default:
-				this.situacaoCond = SituacaoCondominio.SEM_CLASSIFICACAO;
-		}
+		this.setSituacaoCondominio(situacao);
 	}
 	
 	
@@ -58,26 +49,7 @@ public class ItemCondominio {
 		this.quantAP = quantAP;
 		this.strID = Integer.toString(this.getIdCond());
 		
-		switch (situacao) {
-			case 1:
-				this.situacaoCond = SituacaoCondominio.PLANTA;
-				break;
-			
-			case 2:
-				this.situacaoCond = SituacaoCondominio.VENDENDO;
-				break;
-				
-			case 3:
-				this.situacaoCond = SituacaoCondominio.CONSTRUIDA;
-				break;
-				
-			case 4:
-				this.situacaoCond = SituacaoCondominio.CONSTRUINDO;
-				break;
-				
-			default:
-				this.situacaoCond = SituacaoCondominio.SEM_CLASSIFICACAO;
-		}
+		this.setSituacaoCondominio(situacao);
 	}
 	
 	
@@ -105,29 +77,31 @@ public class ItemCondominio {
 	}
 		
 	
-	public SituacaoCondominio getSituacaoCondominio() {
+	public EnumSituacaoCondominio getSituacaoCondominio() {
 		return this.situacaoCond;
 	}
+	
+	
 	public void setSituacaoCondominio (int situacao) {
 			switch (situacao) {
 			case 1:
-				this.situacaoCond = SituacaoCondominio.PLANTA;
+				this.situacaoCond = EnumSituacaoCondominio.PLANTA;
 				break;
 			
 			case 2:
-				this.situacaoCond = SituacaoCondominio.VENDENDO;
+				this.situacaoCond = EnumSituacaoCondominio.A_VENDA;
 				break;
 				
 			case 3:
-				this.situacaoCond = SituacaoCondominio.CONSTRUIDA;
+				this.situacaoCond = EnumSituacaoCondominio.EDIFICADO;
 				break;
 				
 			case 4:
-				this.situacaoCond = SituacaoCondominio.CONSTRUINDO;
+				this.situacaoCond = EnumSituacaoCondominio.EM_CONSTRUCAO;
 				break;
 				
 			default:
-				this.situacaoCond = SituacaoCondominio.SEM_CLASSIFICACAO;
+				this.situacaoCond = EnumSituacaoCondominio.SEM_CLASSIFICACAO;
 		}
 	}
 	

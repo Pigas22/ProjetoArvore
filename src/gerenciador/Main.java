@@ -153,7 +153,23 @@ public class Main {
 					// MenuPesquisar - Arv Condominio e Morador 
 					
 					if (isArvCondominio) {
-						// Arv Condominio (Condominio X Morador)
+						// Arv Condominio (Situações dos Condominios)
+						vetorItemCond = arvCond.CamPreFixado();
+						
+						if (vetorItemMorador.length > 0) {
+							menu.titulo("Situações dos Condomínios");
+							
+							format.centralizar(menu.exibirPesqSituacaoCond(arvCond, vetorItemCond));
+							
+							menu.linha();
+							
+						} else {
+							menu.mensagemTerminal(true, "Problema inexperado ao realizar a pesquisar das situações.");
+	
+	
+						}
+						
+						menu.delay(3);
 						
 						
 					} else if (isArvMorador) {
@@ -192,7 +208,6 @@ public class Main {
 						ItemCondominio dado = arvCond.pesquisarComRetorno(idAlterar);
 						
 						dado.setNomeCond(novoNome);
-
 						
 					} else if (isArvMorador) {
 						ItemMorador dado = arvMorador.pesquisarComRetorno(idAlterar);
@@ -295,11 +310,11 @@ public class Main {
 					// MenuPesquisar - Arv Condominio e Morador 
 					
 					if (isArvCondominio) {
-						
+						// Condomino X Administrador
 						
 					} else if (isArvMorador) {
 						// Arv Morador (Quantidade de Moradores) 
-						vetorItemMorador = arvMorador.CamCentral();
+						vetorItemMorador = arvMorador.CamPreFixado();
 						
 						if (vetorItemMorador.length > 0) {
 							menu.titulo("Quantidade de Moradores - TOP 5");
@@ -539,12 +554,12 @@ public class Main {
 						break;
 
 					} else if (isArvCondominio) {
-						vetorItemCond = arvCond.CamCentral();
+						vetorItemCond = arvCond.CamPreFixado();
 
 						menu.exibirArvore(arvCond, vetorItemCond);
 						
 					} else if (isArvMorador) {
-						vetorItemMorador = arvMorador.CamCentral();
+						vetorItemMorador = arvMorador.CamPreFixado();
 						
 						menu.exibirArvore(arvMorador, vetorItemMorador);
 					}

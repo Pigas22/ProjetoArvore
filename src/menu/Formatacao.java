@@ -4,11 +4,12 @@ import java.io.IOException;
 
 import arvores.ArvoreCondominio;
 import arvores.ArvoreMorador;
+import dados.EnumSituacaoCondominio;
 import dados.ItemCondominio;
 import dados.ItemMorador;
 
 public class Formatacao {
-	private int numEspacamentoUni = 14;
+	private int numEspacamentoUni = 18;
 	private String caracteres = "-="; // Mantenha 2 Caracteres
 	
 	
@@ -74,7 +75,7 @@ public class Formatacao {
     
 	
 	public String dadosArvore(ArvoreCondominio arvCond, ItemCondominio[] vetorItemCond) {
-		vetorItemCond = arvCond.CamCentral();
+		vetorItemCond = arvCond.CamPreFixado();
 		String msg = "";
 
 		for (int i = 0; i < arvCond.getQuantNos(); i++){
@@ -93,7 +94,7 @@ public class Formatacao {
 	
 	
 	public String dadosArvore(ArvoreMorador arvMorador, ItemMorador[] vetorItemMorador) {
-		vetorItemMorador = arvMorador.CamCentral();
+		vetorItemMorador = arvMorador.CamPreFixado();
 		String msg = "";
 		
 		for (int i = 0; i < arvMorador.getQuantNos(); i++){
@@ -197,6 +198,145 @@ public class Formatacao {
 		}
 		
 		return msgDetalhada;
+	}
+	
+	
+	public String tabelaSituacaoCond(ArvoreCondominio arvCond, ItemCondominio[] vetorItemCondominio) {
+		String msgDetalhada = "";
+		
+		String nomeCond;
+		String itemPlanta;
+
+		String itemAVenda;
+		String itemEdificado;
+		
+		String itemEmConstrucao;
+		String itemSemClassificacao;
+		
+		EnumSituacaoCondominio itemSituacao;
+		
+		String[] vetorPLANTA = new String[8];
+		String[] vetorA_VENDA = new String[8];
+		
+		String[] vetorEDIFICADO = new String[8];
+		String[] vetorEM_CONSTRUCAO = new String[8];
+		
+		String[] vetorSEM_CLASSIFICACAO = new String[10];
+		
+
+		for (int i = 0; i < arvCond.getQuantNos(); i++){
+			if (vetorItemCondominio[i] == null) {
+				continue;
+			}
+			
+			itemSituacao = vetorItemCondominio[i].getSituacaoCondominio();
+			nomeCond = vetorItemCondominio[i].getNomeCond();
+		
+				
+			if (itemSituacao == EnumSituacaoCondominio.PLANTA) {
+				if (vetorPLANTA[0] == null) {
+					vetorPLANTA[0] = nomeCond;
+				
+				} else {
+					vetorPLANTA[vetorPLANTA.length] = nomeCond;
+					
+				}
+				
+			} else if (itemSituacao == EnumSituacaoCondominio.A_VENDA) {
+				if (vetorPLANTA[0] == null) {
+					vetorA_VENDA[0] = nomeCond;
+				
+				} else {
+					vetorA_VENDA[vetorA_VENDA.length] = nomeCond;
+					
+				}
+				
+			} else if (itemSituacao == EnumSituacaoCondominio.EDIFICADO) {
+				if (vetorPLANTA[0] == null) {
+					vetorEDIFICADO[0] = nomeCond;
+					
+				} else {
+					vetorEDIFICADO[vetorEDIFICADO.length] = nomeCond;
+				}
+				
+			} else if (itemSituacao == EnumSituacaoCondominio.EM_CONSTRUCAO) {
+				if (vetorPLANTA[0] == null) {
+					vetorEM_CONSTRUCAO[0] = nomeCond;
+
+				} else {
+					vetorEM_CONSTRUCAO[vetorEM_CONSTRUCAO.length] = nomeCond;
+				
+				}
+				
+			} else if (itemSituacao == EnumSituacaoCondominio.SEM_CLASSIFICACAO) {
+				if (vetorPLANTA[0] == null) {
+					vetorSEM_CLASSIFICACAO[0] = nomeCond;}
+				
+				else {
+					vetorSEM_CLASSIFICACAO[vetorSEM_CLASSIFICACAO.length] = nomeCond;
+				}
+				
+			} else {
+				continue;
+				
+			}
+		}
+		
+		for (int f = 0; f < arvCond.getQuantNos(); f++) {
+			msgDetalhada += "\n";
+			
+			
+			if (vetorPLANTA[f] == null) {
+				itemPlanta = "Nulo";
+				
+			} else {
+				itemPlanta = vetorPLANTA[f];
+				
+			}
+			
+			if (vetorA_VENDA[f] == null) {
+				itemAVenda = "Nulo";
+				
+			} else {
+				itemAVenda = vetorA_VENDA[f];
+				
+			}
+			
+			if (vetorEDIFICADO[f] == null) {
+				itemEdificado = "Nulo";
+				
+			} else {
+				itemEdificado = vetorEDIFICADO[f];
+				
+			}
+			
+			if (vetorEM_CONSTRUCAO[f] == null) {
+				itemEmConstrucao = "Nulo";
+				
+			} else {
+				itemEmConstrucao = centralizarItem(vetorEM_CONSTRUCAO[f], 15) + " | ";
+				
+			}
+			
+			if (vetorSEM_CLASSIFICACAO[f] == null) {
+				itemSemClassificacao = "Nulo";
+				
+			} else {
+				itemSemClassificacao= vetorSEM_CLASSIFICACAO[f];
+				
+			}
+			
+			
+			msgDetalhada += centralizarItem(itemPlanta, 10) + "  | "
+							+ centralizarItem(itemEdificado, 10) + "| " 
+							+ centralizarItem(itemAVenda, 11) + "  |   "
+							+ centralizarItem(itemEmConstrucao, 13) + "  |  "
+							+ centralizarItem(itemSemClassificacao, 15);
+			
+		}
+		
+		return msgDetalhada;
+	
 	}
 	
 	

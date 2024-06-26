@@ -17,10 +17,10 @@ public class ArvoreCondominio {
 	
 	public void inserirDadosPadroes() {
 		this.inserir(new ItemCondominio(1, "Cond 1",  "Thiago",	 10));
-		this.inserir(new ItemCondominio(2, "Cond 2",  "Diogo", 	 40, "rua 1"));
-		this.inserir(new ItemCondominio(3, "Cond 3",  "Diogo",   15, "rua 2"));
-		this.inserir(new ItemCondominio(4, "Cond 4", "Vinicius", 30, "rua 3"));
-		this.inserir(new ItemCondominio(5, "Cond 5",  "Thiago",  10));
+		this.inserir(new ItemCondominio(2, "Cond 2",  "Diogo", 	 40, 2, "rua 1"));
+		this.inserir(new ItemCondominio(3, "Cond 3",  "Diogo",   15, 8, "rua 2"));
+		this.inserir(new ItemCondominio(4, "Cond 4", "Vinicius", 30, 3, "rua 3"));
+		this.inserir(new ItemCondominio(5, "Cond 5",  "Thiago",  10, 3));
 	}
 	
 	public String getNOME() {
@@ -159,22 +159,6 @@ public class ArvoreCondominio {
 		return vet;
 	}
 	
-	//caminhamento central personalizado
-	public ItemCondominio [] CamCentralPersonalizado (boolean pesqBlocosCond){
-		int []n= new int[1];
-		n[0]=0;
-		ItemCondominio [] vet = new ItemCondominio[this.quantNos];
-		return (FazCamCentralPersonalizado (this.raiz, vet, n));
-	}
-	private ItemCondominio [] FazCamCentralPersonalizado (NoArvCondominio arv, ItemCondominio [] vet, int []n){
-		if (arv != null) {
-			vet = FazCamCentralPersonalizado (arv.getEsq(),vet,n);
-			vet[n[0]] = arv.getInfo();
-			n[0]++;
-			vet = FazCamCentralPersonalizado (arv.getDir(),vet,n);
-		}
-		return vet;
-	}
 	
 	//caminhamento pré-fixado
 	public ItemCondominio [] CamPreFixado (){
