@@ -242,6 +242,14 @@ public class Menu {
 		return msgDetalhada;
 	}
 	
+	
+	public String exibirPesqAdmXCond(ArvoreCondominio arvCond, ItemCondominio[] vetorItemCond) {
+		String msgDetalhada = "";
+		msgDetalhada += format.tabelaAdmXCond(arvCond, vetorItemCond);
+		
+		return msgDetalhada;
+	}
+	
 
 	public void mensagemTerminal(boolean isError, String msg) {
 		linha();

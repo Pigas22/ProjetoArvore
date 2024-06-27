@@ -340,6 +340,44 @@ public class Formatacao {
 	}
 	
 	
+	public String tabelaAdmXCond(ArvoreCondominio arvCond, ItemCondominio[] vetorItemCondominio) {
+		String msgDetalhada = "";
+		
+		String[] nomeAdms = new String[5];
+		String[] nomeCond = new String [5];
+		
+		int contAdm = 0;
+		
+		for (int f = 0; f < nomeAdms.length; f++) {
+			nomeAdms[contAdm] = vetorItemCondominio[f].getAdm();
+			
+			for (int i = 0; i < arvCond.getQuantNos(); i++){
+				if (vetorItemCondominio[i] == null) {
+					continue;
+					
+				}
+				
+				nomeCond[i] = vetorItemCondominio[i].getNomeCond();
+			}
+			
+			contAdm++;
+		}
+		
+
+		for (int t = 0; t < 0;) {
+			msgDetalhada += centralizarItem(nomeAdms[t], 18) + " | ";
+			
+			for (int f = 0; f < vetorItemCondominio.length; f++) {
+				msgDetalhada += "\n";
+				msgDetalhada += centralizarItem(nomeCond[f], 18) + " | ";
+				
+			}
+		}
+		
+		return msgDetalhada;
+	}
+	
+	
 	public int getNumEspacamentoUni() {
 		return numEspacamentoUni;
 	}
